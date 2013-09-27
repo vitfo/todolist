@@ -1,0 +1,23 @@
+{#content}
+
+<div class="row">
+<div id="lists" class="span5">
+	<h2>Seznamy úkolů</h2>
+	<ul class="nav nav-list" n:snippet="list">
+		<li n:foreach="$lists as $listItem"  n:class="$listItem->id == $id ? active">
+			<a n:href="List:list $listItem->id">{$listItem->title}</a>
+		</li>
+	</ul>
+</div>
+
+<div id="listForm" class="span5">
+	<h2>Nový seznam</h2>
+	{control newListForm}
+</div>
+</div>
+
+<br>
+
+{control listControl}
+
+{/#}
