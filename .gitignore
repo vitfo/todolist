@@ -1,1 +1,9 @@
-/nbproject
+app/config/config.local.neon
+log/*
+temp/*
+nbproject
+.DS_Store
+
+!.gitignore
+!.htaccess
+!web.config
