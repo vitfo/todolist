@@ -1,0 +1,7 @@
+parameters:
+	database:
+		host: #hostName
+		username: #userName
+		password: #password
+		database: #databaseName
+		profiler: on

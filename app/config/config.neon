@@ -5,11 +5,6 @@
 # http://nette.org/security-warning
 #
 
-extensions:
-	dibi: DibiNette21Extension
-
-parameters:
-
 php:
 	date.timezone: Europe/Prague
 	# zlib.output_compression: yes

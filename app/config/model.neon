@@ -6,7 +6,8 @@
 #
 
 services:
-	authenticator: Model\Authenticator
-	userRepository: Model\UserRepository
-	taskRepository: Model\TaskRepository
-	listRepository: Model\ListRepository
+	- LeanMapper\Connection(%database%)
+	- Model\Authenticator
+	- Model\UserRepository
+	- Model\TaskRepository
+	- Model\ListRepository

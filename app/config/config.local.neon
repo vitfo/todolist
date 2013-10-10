@@ -1,6 +1,0 @@
-dibi:
-	host: localhost
-	username: root
-	password:
-	database: todolist
-	lazy: true
