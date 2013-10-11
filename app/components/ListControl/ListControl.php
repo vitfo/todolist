@@ -1,11 +1,19 @@
 <?php
 
-namespace App\Components;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
+namespace Todolist\Components;
 
-use Nette,
-	Model,
-	App\Components\TaskForm;
+use Todolist\Model\TaskRepository,
+	Todolist\Model\ListRepository,
+	Nette\Application\BadRequestException,
+	Todolist\Components\TaskForm;
+
 
 /**
  * Komponenta listControl
@@ -13,18 +21,18 @@ use Nette,
 class ListControl extends BaseControl
 {
 	
-	/** @var Model\TaskRepository */
+	/** @var TaskRepository */
 	protected $tasks;
 	
-	/** @var Model\ListRepository */
+	/** @var ListRepository */
 	protected $lists;
 	
 	/** @var int */
 	public $listId;
 	
 	
-	public function __construct(Model\TaskRepository $tasks,
-			Model\ListRepository $lists)
+	public function __construct(TaskRepository $tasks,
+								ListRepository $lists)
 	{
 		parent::__construct();
 		$this->tasks = $tasks;
@@ -43,7 +51,7 @@ class ListControl extends BaseControl
 			$list = $this->lists->findBy(array('id' => $this->listId))->fetch();
 
 			if(empty($list))
-				throw new Nette\Application\BadRequestException("Seznam neexistuje.");
+				throw new BadRequestException("Seznam neexistuje.");
 
 			$this->template->list = $list;
 

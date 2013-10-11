@@ -1,13 +1,13 @@
-#
-# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
-#
-# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
-# http://nette.org/security-warning
+##
+# ToDoList
+# Školní projekt k seznámení s Nette a ORM
+# 
+# @author IIVOS <miroslav.mrazek@gmail.com>
 #
 
 services:
 	- LeanMapper\Connection(%database%)
-	- Model\Authenticator
-	- Model\UserRepository
-	- Model\TaskRepository
-	- Model\ListRepository
+	- Todolist\Model\Authenticator
+	- Todolist\Model\UserRepository
+	- Todolist\Model\TaskRepository
+	- Todolist\Model\ListRepository

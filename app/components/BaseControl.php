@@ -1,13 +1,21 @@
 <?php
 
-namespace App\Components;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette;
+namespace Todolist\Components;
+
+use Nette\Application\UI\Control;
+
 
 /**
  * Předek všech komponent, které umí načítat komponenty z configu
  */
-class BaseControl extends Nette\Application\UI\Control
+class BaseControl extends Control
 {
 	
 }

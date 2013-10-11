@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Components;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use App,
-	Model,
-	Nette,
+namespace Todolist\Components;
+
+use Todolist\Model\TaskRepository,
 	Nette\Application\UI\Form,
 	DateTime;
 
@@ -13,10 +18,11 @@ use App,
  */
 class TaskForm extends Form
 {
-	/** @var Model\TaskRepository */
+	
+	/** @var TaskRepository */
 	protected $tasks;
 	
-	public function __construct(Model\TaskRepository $tasks)
+	public function __construct(TaskRepository $tasks)
 	{
 		parent::__construct();
         $this->addText('text', 'Popis:')
@@ -32,7 +38,7 @@ class TaskForm extends Form
 	/**
 	 * Obsluha formuláře NewTaskForm
 	 * 
-	 * @param Nette\Application\UI\Form $form
+	 * @param Form $form
 	 */
 	public function newTaskFormSubmitted($form)
 	{
@@ -40,7 +46,7 @@ class TaskForm extends Form
 		
 		$values['list_id'] = $this->presenter->request->parameters['id']; // TODO refaktor
 		$values['created'] = new DateTime();
-		
+
 		$this->tasks->insert($values);
 		$this->presenter->redirect('this');
 	}

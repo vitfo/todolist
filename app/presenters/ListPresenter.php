@@ -1,10 +1,17 @@
 <?php
 
-namespace App;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use App\Components\ListControl,
-	App\Components\ListForm,
-	App\Components\LogoutControl;
+namespace Todolist;
+
+use Todolist\Components\ListControl,
+	Todolist\Components\ListForm,
+	Todolist\Components\LogoutControl;
 
 
 /**

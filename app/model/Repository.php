@@ -1,17 +1,25 @@
 <?php
 
-namespace Model;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette,
+namespace Todolist\Model;
+
+use Nette\Object,
 	DibiConnection,
-	DibiFluent;
+	DibiFluent,
+	Traversable;
 
 
 
 /**
  * Provádí operace nad databázovou tabulkou.
  */
-abstract class Repository extends Nette\Object
+abstract class Repository extends Object
 {
 	/** @var DibiConnection */
 	protected $connection;
@@ -71,7 +79,7 @@ abstract class Repository extends Nette\Object
 	 * 
 	 * @param array $values
 	 */
-	public function insert(\Traversable $values)
+	public function insert(Traversable $values)
 	{
 		return $this->connection->insert($this->table, $values);
 	}

@@ -1,9 +1,15 @@
 <?php
 
-namespace App;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette,
-	Model;
+namespace Todolist;
+
+use Nette\Application\UI\Form;
 
 
 /**
@@ -19,11 +25,11 @@ class SignPresenter extends BasePresenter
 
 	/**
 	 * Sign-in form factory.
-	 * @return Nette\Application\UI\Form
+	 * @return Form
 	 */
 	protected function createComponentSignInForm()
 	{
-		$form = new Nette\Application\UI\Form;
+		$form = new Form;
 		$form->addText('username', 'Username:')
 			->setRequired('Please enter your username.');
 
@@ -34,11 +40,9 @@ class SignPresenter extends BasePresenter
 
 		$form->addSubmit('send', 'Sign in');
 
-		// call method signInFormSucceeded() on success
 		$form->onSuccess[] = $this->signInFormSucceeded;
 		return $form;
 	}
-
 
 
 	public function signInFormSucceeded($form)
@@ -60,7 +64,6 @@ class SignPresenter extends BasePresenter
 
 		$this->redirect('List:list');
 	}
-
 
 
 	public function actionOut()

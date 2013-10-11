@@ -1,3 +1,10 @@
+##
+# ToDoList
+# Školní projekt k seznámení s Nette a ORM
+# 
+# @author IIVOS <miroslav.mrazek@gmail.com>
+#
+
 -- Adminer 3.6.2 MySQL dump
 
 SET NAMES utf8;

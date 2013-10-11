@@ -1,6 +1,13 @@
 <?php
 
-namespace App;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
+
+namespace Todolist;
 
 use Nette,
 	Nette\Application\Routers\RouteList,

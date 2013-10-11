@@ -1,6 +1,13 @@
 <?php
 
-namespace Model;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
+
+namespace Todolist\Model;
 
 use Nette;
 
@@ -15,10 +22,10 @@ class ListRepository extends Repository
 	 * Vrátí seznamy podle uživatele
 	 * 
 	 * @param  int $id
-	 * @return Nette\Database\Table\Selection
+	 * @return array
 	 */
 	public function findByUser($id)
 	{
-		return $this->findBy(array('user_id' => $id));
+		return $this->findBy(['user_id' => $id]);
 	}
 }

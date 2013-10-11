@@ -1,9 +1,15 @@
 <?php
 
-namespace App;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette,
-	Model,
+namespace Todolist;
+
+use Nette\Application\BadRequestException,
 	Nette\Diagnostics\Debugger;
 
 
@@ -23,7 +29,7 @@ class ErrorPresenter extends BasePresenter
 			$this->payload->error = TRUE;
 			$this->terminate();
 
-		} elseif ($exception instanceof Nette\Application\BadRequestException) {
+		} elseif ($exception instanceof BadRequestException) {
 			$code = $exception->getCode();
 			// load template 403.latte or 404.latte or ... 4xx.latte
 			$this->setView(in_array($code, array(403, 404, 405, 410, 500)) ? $code : '4xx');

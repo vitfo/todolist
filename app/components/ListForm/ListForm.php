@@ -1,21 +1,31 @@
 <?php
 
-namespace App\Components;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use App,
-	Model,
-	Nette,
-	Nette\Application\UI\Form;
+namespace Todolist\Components;
+
+use Todolist\Model\ListRepository,
+	Nette\Application\UI\Form,
+	Nette\Templating\FileTemplate,
+	Nette\Latte\Engine;
+
 
 /**
  * Formulář pro vložení nového seznamu
  */
 class ListForm extends Form
 {
-	/** @var Model\ListRepository */
+	
+	/** @var ListRepository */
 	protected $lists;
 	
-	public function __construct(Model\ListRepository $lists)
+	
+	public function __construct(ListRepository $lists)
 	{
 		parent::__construct();
         $this->addText('title', 'Název:')
@@ -28,22 +38,20 @@ class ListForm extends Form
 	}
 
 
-	
 	public function render()
 	{
-		$template = new \Nette\Templating\FileTemplate;
-		$template->registerFilter(new Nette\Latte\Engine);
+		$template = new FileTemplate;
+		$template->registerFilter(new Engine);
 		$template->_control = $this->presenter;
 		$template->setFile(__DIR__.'/template.latte');
 		$template->render();
 	}
 
-
 	
 	/**
 	 * Obsluha formuláře NewListForm
 	 * 
-	 * @param Nette\Application\UI\Form $form
+	 * @param Form $form
 	 */
 	public function newListFormSubmitted($form)
 	{

@@ -1,9 +1,17 @@
 <?php
 
-namespace App;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette,
-	Model;
+namespace Todolist;
+
+use Todolist\Model\UserRepository,
+	Todolist\Model\TaskRepository,
+	Todolist\Model\ListRepository;
 
 
 /**
@@ -12,19 +20,19 @@ use Nette,
 abstract class SecuredPresenter extends BasePresenter
 {
 	
-	/** @var Model\UserRepository */
+	/** @var UserRepository */
 	protected $users;
 	
-	/** @var Model\TaskRepository */
+	/** @var TaskRepository */
 	protected $tasks;
 	
-	/** @var Model\ListRepository */
+	/** @var ListRepository */
 	protected $lists;
 	
 	
-	public function inject(Model\UserRepository $users,
-			Model\TaskRepository $tasks,
-			Model\ListRepository $lists)
+	public function inject(UserRepository $users,
+							TaskRepository $tasks,
+							ListRepository $lists)
 	{
 		$this->users = $users;
 		$this->tasks = $tasks;
@@ -32,7 +40,8 @@ abstract class SecuredPresenter extends BasePresenter
 	}
 	
 	
-	public function startup() {
+	public function startup()
+	{
 		parent::startup();
 		
 		if(!$this->user->isLoggedIn())

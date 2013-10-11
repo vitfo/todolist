@@ -1,8 +1,13 @@
 <?php
 
-namespace Model;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette;
+namespace Todolist\Model;
 
 
 /**
@@ -10,5 +15,4 @@ use Nette;
  */
 class UserRepository extends Repository
 {
-	//put your code here
 }

@@ -1,8 +1,8 @@
-#
-# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
-#
-# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
-# http://nette.org/security-warning
+##
+# ToDoList
+# Školní projekt k seznámení s Nette a ORM
+# 
+# @author IIVOS <miroslav.mrazek@gmail.com>
 #
 
 php:
@@ -13,13 +13,13 @@ nette:
 	application:
 		errorPresenter: Error
 		mapping:
-			*: App\*Module\*Presenter
+			*: Todolist\*Module\*Presenter
 
 	session:
 		expiration: 14 days
 
 services:
-	routerFactory: App\RouterFactory
+	routerFactory: Todolist\RouterFactory
 	router: @routerFactory::createRouter
 
 includes:

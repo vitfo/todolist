@@ -1,8 +1,14 @@
 <?php
 
-namespace App\Components;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette;
+namespace Todolist\Components;
+
 
 /**
  * Komponenta logoutControl

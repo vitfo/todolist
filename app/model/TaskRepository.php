@@ -1,8 +1,13 @@
 <?php
 
-namespace Model;
+/**
+ * ToDoList
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
 
-use Nette;
+namespace Todolist\Model;
 
 
 /**
@@ -22,18 +27,22 @@ class TaskRepository extends Repository
 		if(empty($done))
 			$done = FALSE;
 		
-		$this->connection->update($this->table, array('done' => $done))
-				->where(array('id' => $id))->execute();
+		$this->connection
+			->update($this->table, ['done' => $done])
+			->where(['id' => $id])
+			->execute();
 	}
+	
 	
 	/**
 	 * Vrátí úkoly v daném seznamu
 	 * 
 	 * @param  int $id
-	 * @return Nette\Database\Table\Selection
+	 * @return array
 	 */
 	public function findByList($id)
 	{
-		return $this->findBy(array('list_id' => $id));
+		return $this->findBy(['list_id' => $id]);
 	}
+	
 }
