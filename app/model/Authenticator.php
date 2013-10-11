@@ -7,24 +7,14 @@ use Nette,
 	Nette\Utils\Strings;
 
 
-/*
-CREATE TABLE users (
-	id int(11) NOT NULL AUTO_INCREMENT,
-	username varchar(50) NOT NULL,
-	password char(60) NOT NULL,
-	role varchar(20) NOT NULL,
-	PRIMARY KEY (id)
-);
-*/
-
 /**
- * Users authenticator.
+ * Třída zajišťující ověření uživatele.
  */
 class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator
 {
+	
 	/** @var DibiConnection */
-	private $database;
-
+	private $database; # používáme LeanMapper\Connection, ale to dědí od DibiConnection
 
 
 	public function __construct(DibiConnection $database)
@@ -33,9 +23,10 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	}
 
 
-
 	/**
-	 * Performs an authentication.
+	 * Ověří uživatele.
+	 * 
+	 * @param array přihlašovací údaje
 	 * @return Nette\Security\Identity
 	 * @throws Nette\Security\AuthenticationException
 	 */
@@ -55,18 +46,17 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 //		if ($row->password !== $this->calculateHash($password, $row->password)) {
 //			throw new Nette\Security\AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 //		}
-
-		$identity = $row->toArray();
-		unset($identity['password']);
-
-		return new Nette\Security\Identity($row->id, array(), $identity);
+		
+		return new Nette\Security\Identity($row->id, [], ['name' => $row->name]);
 	}
 
 
 
 	/**
-	 * Computes salted password hash.
-	 * @param  string
+	 * Vytvoří hash hesla.
+	 * 
+	 * @param string heslo
+	 * @param string salt
 	 * @return string
 	 */
 	public static function calculateHash($password, $salt = NULL)
