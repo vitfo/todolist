@@ -4,7 +4,7 @@
  * 
  * @author IIVOS <miroslav.mrazek@gmail.com>
  *
- * @param $lists
+ * @param $catalogs
  *}
 
 {#content}
@@ -13,7 +13,7 @@
 <div id="lists" class="span5">
 	<h2>Seznamy úkolů</h2>
 	<ul class="nav nav-list" n:snippet="list">
-		<li n:foreach="$lists as $listItem"  n:class="$listItem->id == $id ? active">
+		<li n:foreach="$catalogs as $listItem"  n:class="$listItem->id == $id ? active">
 			<a n:href="List:list $listItem->id">{$listItem->title}</a>
 		</li>
 	</ul>

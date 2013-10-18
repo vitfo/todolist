@@ -28,8 +28,8 @@ final class ListPresenter extends SecuredPresenter
 	public function actionList($id = NULL)
 	{
 		$user = $this->users->get($this->user->id);
-		$lists = $user->catalogs;
-		$this->template->lists = $lists;
+		$catalogs = $user->catalogs;
+		$this->template->catalogs = $catalogs;
 		$this->template->id = $id;
 		
 		$this['listControl']->listId = $id;
@@ -43,7 +43,7 @@ final class ListPresenter extends SecuredPresenter
 	 */
 	public function createComponentListControl()
 	{
-		return new ListControl($this->tasks, $this->lists);
+		return new ListControl($this->tasks, $this->catalogs);
 	}
 	
 	
@@ -54,7 +54,7 @@ final class ListPresenter extends SecuredPresenter
 	 */
 	public function createComponentNewListForm()
 	{
-		return new ListForm($this->lists);
+		return new ListForm($this->catalogs);
 	}
 	
 	

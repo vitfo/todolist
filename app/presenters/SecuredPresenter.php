@@ -27,16 +27,16 @@ abstract class SecuredPresenter extends BasePresenter
 	protected $tasks;
 	
 	/** @var CatalogRepository */
-	protected $lists;
+	protected $catalogs;
 	
 	
 	public function inject(UserRepository $users,
 							TaskRepository $tasks,
-							CatalogRepository $lists)
+							CatalogRepository $catalogs)
 	{
 		$this->users = $users;
 		$this->tasks = $tasks;
-		$this->lists = $lists;
+		$this->catalogs = $catalogs;
 	}
 	
 	

@@ -15,11 +15,5 @@ namespace Todolist\Model;
  */
 class CatalogRepository extends Repository
 {
-	
-	protected function getTable()
-	{
-		return 'list';
-	}
-
 
 }

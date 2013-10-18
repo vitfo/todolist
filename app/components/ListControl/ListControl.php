@@ -10,7 +10,7 @@
 namespace Todolist\Components;
 
 use Todolist\Model\TaskRepository,
-	Todolist\Model\ListRepository,
+	Todolist\Model\CatalogRepository,
 	Nette\Application\BadRequestException,
 	Todolist\Components\TaskForm;
 
@@ -24,7 +24,7 @@ class ListControl extends BaseControl
 	/** @var TaskRepository */
 	protected $tasks;
 	
-	/** @var ListRepository */
+	/** @var CatalogRepository */
 	protected $lists;
 	
 	/** @var int */
@@ -32,7 +32,7 @@ class ListControl extends BaseControl
 	
 	
 	public function __construct(TaskRepository $tasks,
-								ListRepository $lists)
+								CatalogRepository $lists)
 	{
 		parent::__construct();
 		$this->tasks = $tasks;

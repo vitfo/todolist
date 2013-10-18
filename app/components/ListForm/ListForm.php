@@ -9,7 +9,7 @@
 
 namespace Todolist\Components;
 
-use Todolist\Model\ListRepository,
+use Todolist\Model\CatalogRepository,
 	Nette\Application\UI\Form,
 	Nette\Templating\FileTemplate,
 	Nette\Latte\Engine;
@@ -25,7 +25,7 @@ class ListForm extends Form
 	protected $lists;
 	
 	
-	public function __construct(ListRepository $lists)
+	public function __construct(CatalogRepository $lists)
 	{
 		parent::__construct();
         $this->addText('title', 'Název:')
