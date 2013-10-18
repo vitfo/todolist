@@ -9,79 +9,114 @@
 
 namespace Todolist\Model;
 
-use Nette\Object,
-	DibiConnection,
-	DibiFluent,
-	Traversable;
+use LeanMapper\Repository as LeanRepository,
+	LeanMapper\Entity,
+	LeanMapper\Exception\InvalidValueException;
 
 
 
 /**
  * Provádí operace nad databázovou tabulkou.
  */
-abstract class Repository extends Object
+abstract class Repository extends LeanRepository
 {
-	/** @var DibiConnection */
-	protected $connection;
 	
-	/** @var string|NULL */
-	protected $table = NULL;
-
-
-
-	public function __construct(DibiConnection $db)
+		/**
+	 * Z pole výsledků vytvoří Collection
+	 * 
+	 * @param array $entites
+	 * @return Collection
+	 */
+	protected function createCollection(array $entites)
 	{
-		$this->connection = $db;
-		if(is_null($this->table))
+		return Collection::from($entites);
+	}
+
+
+	/**
+	 * Vrátí záznam podle primárního klíče.
+	 * 
+	 * @param int|Entity $id
+	 * @return Entity
+	 * @throws InvalidValueException
+	 */
+	public function get($id)
+	{
+		if ($id instanceof Entity)
+			$id = $id->id;
+
+		$row = $this->connection->select('*')
+			->from($this->getTable())
+			->where('id = %i', $id)
+			->fetch();
+
+		if ($row === false)
 		{
-			$this->table = $this->getTable();
+			throw new InvalidValueException('Nepodařilo se získat data z databáze.', 404);
+		}
+
+		return $this->createEntity($row);
+	}
+	
+	
+	/**
+	 * Vrátí právě jeden záznam podle podmínky.
+	 * 
+	 * @param string $by Podmínka
+	 * @return Entity
+	 * @throws InvalidValueException
+	 */
+	public function getBy($by)
+	{
+		$rows = $this->connection->select('*')
+			->from($this->getTable())
+			->where($by)
+			->fetchAll();
+		
+		if (count($rows) === 1)
+		{
+			return $this->createEntity($rows[0]);
+		}
+		elseif (count($rows) > 1)
+		{
+			throw new InvalidValueException('Databáze vrátila více záznamů.');
+		}
+		else
+		{
+			throw new InvalidValueException('Nepodařilo se získat data z databáze.', 404);
 		}
 	}
 
 
-
 	/**
-	 * Vrací název tabulky.
-	 * @return string
-	 */
-	protected function getTable()
-	{
-		// název tabulky odvodíme z názvu třídy
-		preg_match('#(\w+)Repository$#', get_class($this), $m);
-		return lcfirst($m[1]);
-	}
-
-
-
-	/**
-	 * Vrací všechny řádky z tabulky.
-	 * @return DibiFluent
+	 * Vrátí pole všech entit.
+	 * 
+	 * @return Collection
 	 */
 	public function findAll()
 	{
-		return $this->connection->select('*')->from($this->getTable());
-	}
-
-
-
-	/**
-	 * Vrací řádky podle filtru, např. array('name' => 'John').
-	 * @return DibiFluent
-	 */
-	public function findBy(array $by)
-	{
-		return $this->findAll()->where($by);
+		$entities = $this->connection->select('*')
+					->from($this->getTable())
+					->fetchAll();
+		
+		return $this->createEntities($entities);
 	}
 	
 	
 	/**
-	 * Vloží záznam do tabulky
+	 * Vrátí pole entit podle podmínky.
 	 * 
-	 * @param array $values
+	 * @param array $by Podmínka
+	 * @return Collection
 	 */
-	public function insert(Traversable $values)
+	public function findBy($by)
 	{
-		return $this->connection->insert($this->table, $values);
+		$entities = $this->connection->select('*')
+					->from($this->getTable())
+					->where($by)
+					->fetchAll();
+		
+		return $this->createEntities($entities);
 	}
 
 }

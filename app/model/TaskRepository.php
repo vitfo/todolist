@@ -28,8 +28,8 @@ class TaskRepository extends Repository
 			$done = FALSE;
 		
 		$this->connection
-			->update($this->table, ['done' => $done])
-			->where(['id' => $id])
+			->update($this->table, array('done' => $done))
+			->where(array('id' => $id))
 			->execute();
 	}
 	
@@ -42,7 +42,7 @@ class TaskRepository extends Repository
 	 */
 	public function findByList($id)
 	{
-		return $this->findBy(['list_id' => $id]);
+		return $this->findBy(array('list_id' => $id));
 	}
 	
 }

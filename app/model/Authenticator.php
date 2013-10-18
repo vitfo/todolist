@@ -54,7 +54,7 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 //			throw new Nette\Security\AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 //		}
 		
-		return new Nette\Security\Identity($row->id, [], ['name' => $row->name]);
+		return new Nette\Security\Identity($row->id, array(), array('name' => $row->name));
 	}
 
 

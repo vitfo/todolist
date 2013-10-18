@@ -9,11 +9,9 @@
 
 namespace Todolist\Model;
 
-use Nette;
-
 
 /**
- * Třida pro práci se seznamy úkolů
+ * Třída pro práci se seznamy úkolů
  */
 class ListRepository extends Repository
 {
@@ -26,6 +24,6 @@ class ListRepository extends Repository
 	 */
 	public function findByUser($id)
 	{
-		return $this->findBy(['user_id' => $id]);
+		return $this->findBy(array('user_id' => $id));
 	}
 }

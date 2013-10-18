@@ -22,6 +22,8 @@ final class ListPresenter extends SecuredPresenter
 
 	/**
 	 * Pohled na seznam a jeho úkoly
+	 * 
+	 * @param string
 	 */
 	public function actionList($id = NULL)
 	{
