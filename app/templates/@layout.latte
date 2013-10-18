@@ -39,7 +39,7 @@
 	</ul>
 	<ul class="nav pull-right">
 		{if $user->isLoggedIn()}
-			<li>{control logoutControl}</li>
+			<li>{control logoutComponent}</li>
 		{else}
 			<li class="active"><a n:href="Sign:in">Přihlášení</a></li>
 		{/if}
