@@ -62,7 +62,7 @@ class SignPresenter extends BasePresenter
 			return;
 		}
 
-		$this->redirect('List:list');
+		$this->redirect('Catalog:list');
 	}
 
 

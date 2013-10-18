@@ -10,23 +10,23 @@
 {#content}
 
 <div class="row">
-<div id="lists" class="span5">
+<div id="catalogs" class="span5">
 	<h2>Seznamy úkolů</h2>
 	<ul class="nav nav-list" n:snippet="list">
-		<li n:foreach="$catalogs as $listItem"  n:class="$listItem->id == $id ? active">
-			<a n:href="List:list $listItem->id">{$listItem->title}</a>
+		<li n:foreach="$catalogs as $catalog"  n:class="$catalog->id == $id ? active">
+			<a n:href="Catalog:list $catalog->id">{$catalog->title}</a>
 		</li>
 	</ul>
 </div>
 
-<div id="listForm" class="span5">
+<div id="catalogForm" class="span5">
 	<h2>Nový seznam</h2>
-	{control newListForm}
+	{control newCatalogForm}
 </div>
 </div>
 
 <br>
 
-{control listControl}
+{control catalogControl}
 
 {/#}

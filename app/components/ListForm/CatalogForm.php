@@ -18,23 +18,23 @@ use Todolist\Model\CatalogRepository,
 /**
  * Formulář pro vložení nového seznamu
  */
-class ListForm extends Form
+class CatalogForm extends Form
 {
 	
-	/** @var ListRepository */
-	protected $lists;
+	/** @var CatalogRepository */
+	protected $catalogs;
 	
 	
-	public function __construct(CatalogRepository $lists)
+	public function __construct(CatalogRepository $catalogs)
 	{
 		parent::__construct();
         $this->addText('title', 'Název:')
 			->addRule(Form::FILLED, "Zadejte název seznamu.")
 			->addRule(Form::MIN_LENGTH, "Název musí mít alespoň %s znaků.", 3);
 		$this->addSubmit('ok', 'Vytvořit');
-		$this->onSuccess[] = callback($this, 'newListFormSubmitted');
+		$this->onSuccess[] = callback($this, 'newCatalogFormSubmitted');
 		
-		$this->lists = $lists;
+		$this->catalogs = $catalogs;
 	}
 
 
@@ -43,22 +43,22 @@ class ListForm extends Form
 		$template = new FileTemplate;
 		$template->registerFilter(new Engine);
 		$template->_control = $this->presenter;
-		$template->setFile(__DIR__.'/template.latte');
+		$template->setFile(__DIR__.'/catalogForm.latte');
 		$template->render();
 	}
 
 	
 	/**
-	 * Obsluha formuláře NewListForm
+	 * Obsluha formuláře NewCatalogForm
 	 * 
 	 * @param Form $form
 	 */
-	public function newListFormSubmitted($form)
+	public function newCatalogFormSubmitted($form)
 	{
 		$values = $form->getValues();
 		
 		$values['user_id'] = $this->presenter->user->id;
-		$this->lists->insert($values)->execute();
+		$this->catalogs->insert($values)->execute();
 		$this->presenter->redirect('this');			
 	}
 }

@@ -16,46 +16,46 @@ use Todolist\Model\TaskRepository,
 
 
 /**
- * Komponenta listControl
+ * Komponenta catalogControl
  */
-class ListControl extends BaseControl
+class CatalogControl extends BaseControl
 {
 	
 	/** @var TaskRepository */
 	protected $tasks;
 	
 	/** @var CatalogRepository */
-	protected $lists;
+	protected $catalogs;
 	
 	/** @var int */
-	public $listId;
+	public $catalogId;
 	
 	
 	public function __construct(TaskRepository $tasks,
-								CatalogRepository $lists)
+								CatalogRepository $catalogs)
 	{
 		parent::__construct();
 		$this->tasks = $tasks;
-		$this->lists = $lists;
+		$this->catalogs = $catalogs;
 	}
 	
 	
 	/** defaultní pohled */
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/listControl.latte');
+		$this->template->setFile(__DIR__ . '/catalogControl.latte');
 		
-		$this->template->listId = $this->listId;
-		if (!empty($this->listId))
+		$this->template->catalogId = $this->catalogId;
+		if (!empty($this->catalogId))
 		{
-			$list = $this->lists->findBy(array('id' => $this->listId))->fetch();
+			$catalog = $this->catalogs->findBy(array('id' => $this->catalogId))->fetch();
 
-			if(empty($list))
+			if(empty($catalog))
 				throw new BadRequestException("Seznam neexistuje.");
 
-			$this->template->list = $list;
+			$this->template->catalog = $catalog;
 
-			$tasks = $this->tasks->findByList($this->listId);
+			$tasks = $this->tasks->findByCatalog($this->catalogId);
 			$this->template->tasks = $tasks;
 		}
 		

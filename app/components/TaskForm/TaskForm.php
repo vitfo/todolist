@@ -44,7 +44,7 @@ class TaskForm extends Form
 	{
 		$values = $form->getValues();
 		
-		$values['list_id'] = $this->presenter->request->parameters['id']; // TODO refaktor
+		$values['catalog_id'] = $this->presenter->request->parameters['id']; // TODO refaktor
 		$values['created'] = new DateTime();
 
 		$this->tasks->insert($values);
