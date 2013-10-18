@@ -11,7 +11,8 @@ namespace Todolist\Model;
 
 use LeanMapper\Repository as LeanRepository,
 	LeanMapper\Entity,
-	LeanMapper\Exception\InvalidValueException;
+	LeanMapper\Exception\InvalidValueException,
+	Nette\Utils\Strings;
 
 
 
@@ -117,6 +118,51 @@ abstract class Repository extends LeanRepository
 					->fetchAll();
 		
 		return $this->createEntities($entities);
+	}
+	
+	
+	/**
+	 * Umožňuje volání metod getByFoo('foo') a findByFooAndBar('foo', 'bar').
+	 * 
+	 * @param string $method
+	 * @param mixed  $args
+	 * @return Entity|Collection
+	 */
+	public function __call($method, $args)
+	{
+		if (Strings::startsWith($method, 'findBy'))
+		{
+			$stringOfKeys = Strings::substring($method, 6);
+			$arrayOfKeys = explode('And', $stringOfKeys);
+			$arrayOfLowerKeys = array_map('self::firstLower', $arrayOfKeys);
+			$arrayOfArgs = array_combine($arrayOfLowerKeys, $args);
+			return call_user_func(array($this, 'findBy'), $arrayOfArgs);
+		}
+		elseif (Strings::startsWith($method, 'getBy'))
+		{
+			$stringOfKeys = Strings::substring($method, 5);
+			$arrayOfKeys = explode('And', $stringOfKeys);
+			$arrayOfLowerKeys = array_map('self::firstLower', $arrayOfKeys);
+			$arrayOfArgs = array_combine($arrayOfLowerKeys, $args);
+			return call_user_func(array($this, 'getBy'), $arrayOfArgs);
+		}
+		else
+		{
+			return Nette\ObjectMixin::call($this, $method, $args);
+		}
+	}
+	
+	
+	/**
+	 * Convert first character to lower case.
+	 * @todo: Tahle funkce by se měla přidat do Nette
+	 * 
+	 * @param  string  UTF-8 encoding
+	 * @return string
+	 */
+	private static function firstLower($s)
+	{
+		return Strings::lower(Strings::substring($s, 0, 1)) . Strings::substring($s, 1);
 	}
 
 }
