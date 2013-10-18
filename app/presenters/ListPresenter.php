@@ -27,7 +27,8 @@ final class ListPresenter extends SecuredPresenter
 	 */
 	public function actionList($id = NULL)
 	{
-		$lists = $this->lists->findByUser($this->user->id);
+		$user = $this->users->get($this->user->id);
+		$lists = $user->catalogs;
 		$this->template->lists = $lists;
 		$this->template->id = $id;
 		

@@ -13,17 +13,13 @@ namespace Todolist\Model;
 /**
  * Třída pro práci se seznamy úkolů
  */
-class ListRepository extends Repository
+class CatalogRepository extends Repository
 {
 	
-	/**
-	 * Vrátí seznamy podle uživatele
-	 * 
-	 * @param  int $id
-	 * @return array
-	 */
-	public function findByUser($id)
+	protected function getTable()
 	{
-		return $this->findBy(array('user_id' => $id));
+		return 'list';
 	}
+
+
 }

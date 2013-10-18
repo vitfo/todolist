@@ -11,7 +11,7 @@ namespace Todolist;
 
 use Todolist\Model\UserRepository,
 	Todolist\Model\TaskRepository,
-	Todolist\Model\ListRepository;
+	Todolist\Model\CatalogRepository;
 
 
 /**
@@ -26,13 +26,13 @@ abstract class SecuredPresenter extends BasePresenter
 	/** @var TaskRepository */
 	protected $tasks;
 	
-	/** @var ListRepository */
+	/** @var CatalogRepository */
 	protected $lists;
 	
 	
 	public function inject(UserRepository $users,
 							TaskRepository $tasks,
-							ListRepository $lists)
+							CatalogRepository $lists)
 	{
 		$this->users = $users;
 		$this->tasks = $tasks;

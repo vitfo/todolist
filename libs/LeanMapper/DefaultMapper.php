@@ -22,7 +22,7 @@ class DefaultMapper implements IMapper
 {
 
 	/** @var string */
-	protected $defaultEntityNamespace = 'Model\Entity';
+	protected $defaultEntityNamespace = 'Todolist\Model';
 
 	/** @var string */
 	protected $relationshipTableGlue = '_';

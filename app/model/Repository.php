@@ -21,7 +21,7 @@ use LeanMapper\Repository as LeanRepository,
 abstract class Repository extends LeanRepository
 {
 	
-		/**
+	/**
 	 * Z pole výsledků vytvoří Collection
 	 * 
 	 * @param array $entites

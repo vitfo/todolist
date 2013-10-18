@@ -14,7 +14,8 @@ use LeanMapper\DefaultMapper,
 /**
  * Standard mapper for conventions:
  * - underdash separated names of tables and cols
- * - PK and FK is in [table]_id format
+ * - PK is id
+ * - FK is [table]_id
  * - entity repository is named [Entity]Repository
  * - M:N relations are stored in [table1]_[table2] tables
  *
@@ -30,7 +31,7 @@ class Mapper extends DefaultMapper
 	 */
 	public function getPrimaryKey($table)
 	{
-		return $table . "_id";
+		return "id";
 	}
 
 	/**
@@ -40,7 +41,7 @@ class Mapper extends DefaultMapper
 	 */
 	public function getRelationshipColumn($sourceTable, $targetTable)
 	{
-		return $this->getPrimaryKey($targetTable);
+		return $targetTable . "_id";
 	}
 
 	/**
