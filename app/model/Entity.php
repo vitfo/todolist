@@ -44,7 +44,8 @@ abstract class Entity extends LeanEntity
 		{
 			$relationship = $property->getRelationship();
 			$this->row->{$property->getColumn()} = $value;
-			$this->row->cleanReferencedRowsCache($relationship->getTargetTable(), $relationship->getColumnReferencingTargetTable());
+			$this->row->cleanReferencedRowsCache($relationship->getTargetTable(),
+					$relationship->getColumnReferencingTargetTable());
 		}
 		else
 		{

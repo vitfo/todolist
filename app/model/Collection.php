@@ -18,7 +18,6 @@ use Nette\ArrayHash;
 class Collection extends ArrayHash
 {
 	
-
 	/**
 	 * Vrátí pole párů nad aktuální kolekcí
 	 * 

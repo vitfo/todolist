@@ -12,8 +12,8 @@ namespace Todolist\Model;
 use LeanMapper\Repository as LeanRepository,
 	LeanMapper\Entity,
 	LeanMapper\Exception\InvalidValueException,
-	Nette\Utils\Strings;
-
+	Nette\Utils\Strings,
+	Nette;
 
 
 /**
@@ -35,7 +35,7 @@ abstract class Repository extends LeanRepository
 
 
 	/**
-	 * Vrátí záznam podle primárního klíče.
+	 * Vrátí záznam podle primárního klíče 'id'.
 	 * 
 	 * @param int|Entity $id
 	 * @return Entity
@@ -51,7 +51,7 @@ abstract class Repository extends LeanRepository
 			->where('id = %i', $id)
 			->fetch();
 
-		if ($row === false)
+		if ($row === FALSE)
 		{
 			throw new InvalidValueException('Nepodařilo se získat data z databáze.', 404);
 		}
@@ -90,7 +90,7 @@ abstract class Repository extends LeanRepository
 
 
 	/**
-	 * Vrátí pole všech entit.
+	 * Vrátí kolekci všech entit.
 	 * 
 	 * @return Collection
 	 */
@@ -105,7 +105,7 @@ abstract class Repository extends LeanRepository
 	
 	
 	/**
-	 * Vrátí pole entit podle podmínky.
+	 * Vrátí kolekci entit podle podmínky.
 	 * 
 	 * @param array $by Podmínka
 	 * @return Collection
@@ -154,7 +154,7 @@ abstract class Repository extends LeanRepository
 	
 	
 	/**
-	 * Convert first character to lower case.
+	 * Převede první znak na malé písmeno
 	 * @todo: Tahle funkce by se měla přidat do Nette
 	 * 
 	 * @param  string  UTF-8 encoding
@@ -163,6 +163,117 @@ abstract class Repository extends LeanRepository
 	private static function firstLower($s)
 	{
 		return Strings::lower(Strings::substring($s, 0, 1)) . Strings::substring($s, 1);
+	}
+	
+
+	
+	#========== Kompatibilní chování s Nette\Object ===========================#
+	
+	
+	/**
+	 * Access to reflection.
+	 * @return Nette\Reflection\ClassType
+	 */
+	public static function getReflection()
+	{
+		return new Nette\Reflection\ClassType(get_called_class());
+	}
+
+
+//	/**
+//	 * Call to undefined method.
+//	 * @param  string  method name
+//	 * @param  array   arguments
+//	 * @return mixed
+//	 * @throws Nette\MemberAccessException
+//	 */
+//	public function __call($name, $args)
+//	{
+//		return Nette\ObjectMixin::call($this, $name, $args);
+//	}
+
+
+	/**
+	 * Call to undefined static method.
+	 * @param  string  method name (in lower case!)
+	 * @param  array   arguments
+	 * @return mixed
+	 * @throws Nette\MemberAccessException
+	 */
+	public static function __callStatic($name, $args)
+	{
+		return Nette\ObjectMixin::callStatic(get_called_class(), $name, $args);
+	}
+
+
+	/**
+	 * Adding method to class.
+	 * @param  string  method name
+	 * @param  callable
+	 * @return mixed
+	 */
+	public static function extensionMethod($name, $callback = NULL)
+	{
+		if (strpos($name, '::') === FALSE) {
+			$class = get_called_class();
+		} else {
+			list($class, $name) = explode('::', $name);
+			$rc = new \ReflectionClass($class);
+			$class = $rc->getName();
+		}
+		if ($callback === NULL) {
+			return Nette\ObjectMixin::getExtensionMethod($class, $name);
+		} else {
+			Nette\ObjectMixin::setExtensionMethod($class, $name, $callback);
+		}
+	}
+
+
+	/**
+	 * Returns property value. Do not call directly.
+	 * @param  string  property name
+	 * @return mixed   property value
+	 * @throws Nette\MemberAccessException if the property is not defined.
+	 */
+	public function &__get($name)
+	{
+		return Nette\ObjectMixin::get($this, $name);
+	}
+
+
+	/**
+	 * Sets value of a property. Do not call directly.
+	 * @param  string  property name
+	 * @param  mixed   property value
+	 * @return void
+	 * @throws Nette\MemberAccessException if the property is not defined or is read-only
+	 */
+	public function __set($name, $value)
+	{
+		return Nette\ObjectMixin::set($this, $name, $value);
+	}
+
+
+	/**
+	 * Is property defined?
+	 * @param  string  property name
+	 * @return bool
+	 */
+	public function __isset($name)
+	{
+		return Nette\ObjectMixin::has($this, $name);
+	}
+
+
+	/**
+	 * Access to undeclared property.
+	 * @param  string  property name
+	 * @return void
+	 * @throws Nette\MemberAccessException
+	 */
+	public function __unset($name)
+	{
+		Nette\ObjectMixin::remove($this, $name);
 	}
 
 }
