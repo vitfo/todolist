@@ -57,7 +57,11 @@ class CatalogForm extends Form
 	{
 		$values = $form->getValues();
 		
-		$values['user_id'] = $this->presenter->user->id;
+		$user = $this->$this->presenter->user->id;
+		
+		
+		
+		
 		$this->catalogs->insert($values)->execute();
 		$this->presenter->redirect('this');			
 	}

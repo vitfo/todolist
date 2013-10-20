@@ -48,14 +48,11 @@ class CatalogComponent extends BaseComponent
 		$this->template->catalogId = $this->catalogId;
 		if (!empty($this->catalogId))
 		{
-			$catalog = $this->catalogs->findBy(array('id' => $this->catalogId));
-
-			if(empty($catalog))
-				throw new BadRequestException("Seznam neexistuje.");
+			$catalog = $this->catalogs->get($this->catalogId);
 
 			$this->template->catalog = $catalog;
 
-			$tasks = $this->tasks->findByCatalog($this->catalogId);
+			$tasks = $catalog->tasks;
 			$this->template->tasks = $tasks;
 		}
 		
