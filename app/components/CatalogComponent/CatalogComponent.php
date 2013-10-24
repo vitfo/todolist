@@ -11,8 +11,8 @@ namespace Todolist\Components;
 
 use Todolist\Model\TaskRepository,
 	Todolist\Model\CatalogRepository,
-	Nette\Application\BadRequestException,
-	Todolist\Components\TaskForm;
+	Todolist\Components\TaskForm,
+	Nette\InvalidArgumentException;
 
 
 /**
@@ -63,11 +63,24 @@ class CatalogComponent extends BaseControl
 	/**
 	 * Signál, který nastaví úkol jako (ne)splněný
 	 * 
-	 * @param int  $id
-	 * @param bool $done
+	 * @param int    $id
+	 * @param string $done 'yes'|'no'
 	 */
 	public function handleSetDone($taskId, $done)
 	{
+		if($done === "yes")
+		{
+			$done = TRUE;
+		}
+		elseif($done === "no")
+		{
+			$done = FALSE;
+		}
+		else
+		{
+			throw new InvalidArgumentException("Parametr 'done' může nabývat jen hodnot 'yes', nebo 'no'.");
+		}
+		
 		$this->tasks->setDone($taskId, $done);
 		if($this->presenter->isAjax())
 		{
