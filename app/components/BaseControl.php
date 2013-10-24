@@ -13,9 +13,9 @@ use Nette\Application\UI\Control;
 
 
 /**
- * Předek všech komponent, které umí načítat komponenty z configu
+ * Předek všech komponent
  */
-class BaseComponent extends Control
+class BaseControl extends Control
 {
 	
 }

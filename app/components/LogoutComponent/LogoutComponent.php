@@ -13,7 +13,7 @@ namespace Todolist\Components;
 /**
  * Komponenta logoutComponent
  */
-class LogoutComponent extends BaseComponent
+class LogoutComponent extends BaseControl
 {
 	
 	/** defaultní pohled */

@@ -18,7 +18,7 @@ use Todolist\Model\TaskRepository,
 /**
  * Komponenta catalogComponent
  */
-class CatalogComponent extends BaseComponent
+class CatalogComponent extends BaseControl
 {
 	
 	/** @var TaskRepository */
