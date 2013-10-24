@@ -11,7 +11,7 @@ namespace Todolist\Model;
 
 
 /**
- * Entita reprezentujici seznam úkolů
+ * Entita reprezentující seznam úkolů
  * 
  * @property User   $user  m:hasOne
  * @property Task[] $tasks m:belongsToMany

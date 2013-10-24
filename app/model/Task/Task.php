@@ -11,7 +11,7 @@ namespace Todolist\Model;
 
 
 /**
- * Entita reprezentujici úkol
+ * Entita reprezentující úkol
  * 
  * @property Catalog  $catalog m:hasOne
  * 
@@ -22,5 +22,5 @@ namespace Todolist\Model;
  */
 class Task extends Entity
 {
-
+	
 }

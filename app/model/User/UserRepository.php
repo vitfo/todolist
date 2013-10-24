@@ -15,4 +15,5 @@ namespace Todolist\Model;
  */
 class UserRepository extends Repository
 {
+	
 }
