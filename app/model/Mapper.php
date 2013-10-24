@@ -52,7 +52,7 @@ class Mapper extends DefaultMapper
 	/**
 	 * some_entity -> Model\Entity\SomeEntity
 	 * @param string $table
-	 * @param \LeanMapper\Row $row
+	 * @param Row $row
 	 * @return string
 	 */
 	public function getEntityClass($table, Row $row = null)

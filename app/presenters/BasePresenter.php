@@ -13,7 +13,7 @@ use Nette\Application\UI\Presenter;
 
 
 /**
- * Base presenter for all application presenters.
+ * Předek všech presenterů.
  */
 abstract class BasePresenter extends Presenter
 {

@@ -10,6 +10,7 @@
 namespace Todolist\Components;
 
 use Todolist\Model\CatalogRepository,
+	Todolist\Model\Catalog,
 	Nette\Application\UI\Form,
 	Nette\Templating\FileTemplate,
 	Nette\Latte\Engine;
@@ -28,6 +29,7 @@ class CatalogForm extends Form
 	public function __construct(CatalogRepository $catalogs)
 	{
 		parent::__construct();
+		
         $this->addText('title', 'Název:')
 			->addRule(Form::FILLED, "Zadejte název seznamu.")
 			->addRule(Form::MIN_LENGTH, "Název musí mít alespoň %s znaků.", 3);
@@ -57,12 +59,10 @@ class CatalogForm extends Form
 	{
 		$values = $form->getValues();
 		
-		$user = $this->$this->presenter->user->id;
+		$catalog = new Catalog($values);
+		$catalog->user = $this->presenter->user->id;
 		
-		
-		
-		
-		$this->catalogs->insert($values)->execute();
+		$this->catalogs->persist($catalog);
 		$this->presenter->redirect('this');			
 	}
 }

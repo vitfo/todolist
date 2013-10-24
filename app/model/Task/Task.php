@@ -9,9 +9,11 @@
 
 namespace Todolist\Model;
 
+use DateTime;
+
 
 /**
- * Entita reprezentujici úkol
+ * Entita reprezentující úkol
  * 
  * @property Catalog  $catalog m:hasOne
  * 
@@ -22,5 +24,5 @@ namespace Todolist\Model;
  */
 class Task extends Entity
 {
-
+	
 }

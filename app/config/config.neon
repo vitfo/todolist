@@ -5,11 +5,17 @@
 # @author IIVOS <miroslav.mrazek@gmail.com>
 #
 
+parameters:
+	database:
+		profiler: on
+
 php:
 	date.timezone: Europe/Prague
-	# zlib.output_compression: yes
 
 nette:
+	container:
+		debugger: on
+
 	application:
 		errorPresenter: Error
 		mapping:
@@ -19,8 +25,8 @@ nette:
 		expiration: 14 days
 
 services:
-	routerFactory: Todolist\RouterFactory
-	router: @routerFactory::createRouter
+	- Todolist\RouterFactory
+	router: @Todolist\RouterFactory::createRouter
 
 includes:
 	- model.neon

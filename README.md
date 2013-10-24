@@ -1,4 +1,4 @@
-ToDoList
-========
+Úkolníček alias Todolist
+========================
 
-Školní projekt k seznámení s Nette a ORM
+Školní projekt pro seznámení s Nette a ORM

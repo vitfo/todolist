@@ -11,7 +11,7 @@ namespace Todolist\Model;
 
 
 /**
- * Entita reprezentujici uživatele
+ * Entita reprezentující uživatele
  * 
  * @property Catalog[] $catalogs m:belongsToMany
  * 
@@ -22,5 +22,5 @@ namespace Todolist\Model;
  */
 class User extends Entity
 {
-
+	
 }
