@@ -17,7 +17,7 @@ use LeanMapper\Repository as LeanRepository,
 
 
 /**
- * Provádí operace nad databázovou tabulkou.
+ * Provádí operace nad datovým zdrojem.
  */
 abstract class Repository extends LeanRepository
 {
@@ -44,7 +44,9 @@ abstract class Repository extends LeanRepository
 	public function get($id)
 	{
 		if ($id instanceof Entity)
+		{
 			$id = $id->id;
+		}
 
 		$row = $this->connection->select('*')
 			->from($this->getTable())
@@ -167,7 +169,7 @@ abstract class Repository extends LeanRepository
 	
 
 	
-	#========== Kompatibilní chování s Nette\Object ===========================#
+	#========== Zajištění kompatibilního chování s Nette\Object ===============#
 	
 	
 	/**
