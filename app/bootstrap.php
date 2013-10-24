@@ -7,29 +7,18 @@
  * @author IIVOS <miroslav.mrazek@gmail.com>
  */
 
+use Nette\Config\Configurator;
 
-/**
- * Přípravné rutiny pro spuštění aplikace.
+
+/*
+ * Příprava a vytvoření DI kontejneru
  */
 
 # Načteme třídy Nette
 require __DIR__ . '/../libs/autoload.php';
 
-# Definujeme si zkratku pro rychlé dumpování do DebugBaru
-function barDump($var, $title='')
-{
-    $backtrace = debug_backtrace();
-    $source = (isset($backtrace[1]['class'])) ?
-        $backtrace[1]['class'] :
-        basename($backtrace[0]['file']);
-    $line = $backtrace[0]['line'];
-    if($title !== '')
-        $title .= ' – ';
-    return Nette\Diagnostics\Debugger::barDump($var, $title . $source . ' (' . $line .')');
-}
-
 # Vytvoříme nový konfigurátor
-$configurator = new Nette\Config\Configurator;
+$configurator = new Configurator;
 
 # Povolíme ladící a logovací funkce
 //$configurator->setDebugMode(TRUE);  # vynutí debug mód i na produkčním serveru

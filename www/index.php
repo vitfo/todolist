@@ -1,10 +1,13 @@
 <?php
 
-// Uncomment this line if you must temporarily take down your site for maintenance.
+# Odkomentujte, pokud bude potřeba odstavit aplikaci kvůli údržbě.
 // require '.maintenance.php';
 
-// Let bootstrap create Dependency Injection container.
+# Načteme zkratky pro rychlé volání často používaných funkcí.
+include __DIR__ . '/../app/aliases.php';;
+
+# Necháme bootstrap vytvořit DI kontejner.
 $container = require __DIR__ . '/../app/bootstrap.php';
 
-// Run application.
+# Spustíme aplikaci.
 $container->application->run();
