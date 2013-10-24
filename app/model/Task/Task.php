@@ -9,6 +9,8 @@
 
 namespace Todolist\Model;
 
+use DateTime;
+
 
 /**
  * Entita reprezentující úkol
