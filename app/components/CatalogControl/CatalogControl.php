@@ -16,9 +16,9 @@ use Todolist\Model\TaskRepository,
 
 
 /**
- * Komponenta catalogComponent
+ * Komponenta catalogControl
  */
-class CatalogComponent extends BaseControl
+class CatalogControl extends BaseControl
 {
 	
 	/** @var TaskRepository */
@@ -43,7 +43,7 @@ class CatalogComponent extends BaseControl
 	/** defaultní pohled */
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/catalogComponent.latte');
+		$this->template->setFile(__DIR__ . '/catalogControl.latte');
 		
 		$this->template->catalogId = $this->catalogId;
 		if (!empty($this->catalogId))

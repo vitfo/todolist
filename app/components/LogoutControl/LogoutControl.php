@@ -11,22 +11,22 @@ namespace Todolist\Components;
 
 
 /**
- * Komponenta logoutComponent
+ * Komponenta logoutControl
  */
-class LogoutComponent extends BaseControl
+class LogoutControl extends BaseControl
 {
 	
 	/** defaultní pohled */
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/logoutComponent.latte');
+		$this->template->setFile(__DIR__ . '/logoutControl.latte');
 		$this->template->render();
 	}
 	
 	/** vykreslit jako tlačítko */
 	public function renderButton()
 	{
-		$this->template->setFile(__DIR__ . '/logoutComponentButton.latte');
+		$this->template->setFile(__DIR__ . '/logoutControlButton.latte');
 		$this->template->render();
 	}
 }

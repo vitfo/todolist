@@ -9,9 +9,9 @@
 
 namespace Todolist;
 
-use Todolist\Components\CatalogComponent,
+use Todolist\Components\CatalogControl,
 	Todolist\Components\CatalogForm,
-	Todolist\Components\LogoutComponent;
+	Todolist\Components\LogoutControl;
 
 
 /**
@@ -32,18 +32,18 @@ final class CatalogPresenter extends SecuredPresenter
 		$this->template->catalogs = $catalogs;
 		$this->template->id = $id;
 		
-		$this['catalogComponent']->catalogId = $id;
+		$this['catalog']->catalogId = $id;
 	}
 	
 	
 	/**
-	 * Vytvoří komponentu catalogComponent
+	 * Vytvoří komponentu catalog
 	 * 
-	 * @return CatalogComponent
+	 * @return Catalog
 	 */
-	public function createComponentCatalogComponent()
+	public function createComponentCatalog()
 	{
-		return new CatalogComponent($this->tasks, $this->catalogs);
+		return new CatalogControl($this->tasks, $this->catalogs);
 	}
 	
 	
@@ -59,13 +59,13 @@ final class CatalogPresenter extends SecuredPresenter
 	
 	
 	/**
-	 * Vytvoří komponentu logoutComponent
+	 * Vytvoří komponentu logout
 	 * 
 	 * @return LogoutComponent
 	 */
-	public function createComponentLogoutComponent()
+	public function createComponentLogout()
 	{
-		return new LogoutComponent;
+		return new LogoutControl;
 	}
 	
 }
