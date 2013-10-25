@@ -16,14 +16,29 @@ namespace Todolist\Components;
 class LogoutControl extends BaseControl
 {
 	
-	/** defaultní pohled */
+	/**
+	 * Provede odhlášení uživatele
+	 */
+	public function handleLogout()
+	{
+		$this->presenter->getUser()->logout();
+		$this->presenter->flashMessage('Byl jste odhlášen.');
+		$this->presenter->redirect('Sign:in');
+	}
+	
+	
+	/**
+	 * Defaultní pohled
+	 */
 	public function render()
 	{
 		$this->template->setFile(__DIR__ . '/logoutControl.latte');
 		$this->template->render();
 	}
 	
-	/** vykreslit jako tlačítko */
+	/**
+	 * Vykreslí komponentu jako tlačítko
+	 */
 	public function renderButton()
 	{
 		$this->template->setFile(__DIR__ . '/logoutControlButton.latte');
