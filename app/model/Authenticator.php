@@ -9,24 +9,26 @@
 
 namespace Todolist\Model;
 
-use Nette,
-	DibiConnection,
+use Nette\Security\IAuthenticator,
+	Nette\Security\Identity,
+	Nette\Security\AuthenticationException,
 	Nette\Utils\Strings;
 
 
 /**
  * Třída zajišťující ověření uživatele.
  */
-class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator
+class Authenticator implements IAuthenticator
 {
 	
-	/** @var DibiConnection */
-	private $database; # používáme LeanMapper\Connection, ale to dědí od DibiConnection
-
-
-	public function __construct(DibiConnection $database)
+	/** @var UserRepository */
+	private $users;
+	
+	
+	
+	public function __construct(UserRepository $users)
 	{
-		$this->database = $database;
+		$this->users = $users;
 	}
 
 
@@ -34,29 +36,26 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	 * Ověří uživatele.
 	 * 
 	 * @param array přihlašovací údaje
-	 * @return Nette\Security\Identity
-	 * @throws Nette\Security\AuthenticationException
+	 * @return Identity
+	 * @throws AuthenticationException
 	 */
 	public function authenticate(array $credentials)
 	{
 		list($username, $password) = $credentials;
-		$row = $this->database->query('
-				SELECT *
-				FROM [user]
-				WHERE [username]=%s', $username
-			)->fetch();
-
-		if (!$row) {
-			throw new Nette\Security\AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
+		$user = $this->users->getByUsername($username);
+		
+		if (is_null($user))
+		{
+			throw new AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
 		}
 
-//		if ($row->password !== $this->calculateHash($password, $row->password)) {
-//			throw new Nette\Security\AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
+//		if ($user->password !== $this->calculateHash($password, $user->password))
+//		{
+//			throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 //		}
 		
-		return new Nette\Security\Identity($row->id, array(), array('name' => $row->name));
+		return new Identity($user->id, array(), array('name' => $user->name));
 	}
-
 
 
 	/**
@@ -68,7 +67,8 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 	 */
 	public static function calculateHash($password, $salt = NULL)
 	{
-		if ($password === Strings::upper($password)) { // perhaps caps lock is on
+		if ($password === Strings::upper($password))
+		{ // perhaps caps lock is on
 			$password = Strings::lower($password);
 		}
 		return crypt($password, $salt ?: '$2a$07$' . Strings::random(22));

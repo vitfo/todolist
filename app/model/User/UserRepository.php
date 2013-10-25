@@ -12,6 +12,8 @@ namespace Todolist\Model;
 
 /**
  * Třida pro práci s uživateli
+ * 
+ * @method User getByUsername($username) Vrátí uživatele podle 'username'.
  */
 class UserRepository extends Repository
 {
