@@ -1,5 +1,5 @@
 ##
-# ToDoList
+# TODOLIST
 # Školní projekt k seznámení s Nette a ORM
 # 
 # @author IIVOS <miroslav.mrazek@gmail.com>
