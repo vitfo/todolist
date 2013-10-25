@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * TODOLIST
+ * Školní projekt k seznámení s Nette a ORM
+ * 
+ * @author IIVOS <miroslav.mrazek@gmail.com>
+ */
+
+
 # Odkomentujte, pokud bude potřeba odstavit aplikaci kvůli údržbě.
 // require '.maintenance.php';
 
