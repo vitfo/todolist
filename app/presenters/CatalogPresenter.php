@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ToDoList
+ * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
  * @author IIVOS <miroslav.mrazek@gmail.com>
@@ -9,9 +9,9 @@
 
 namespace Todolist;
 
-use Todolist\Components\CatalogComponent,
+use Todolist\Components\CatalogControl,
 	Todolist\Components\CatalogForm,
-	Todolist\Components\LogoutComponent;
+	Todolist\Components\LogoutControl;
 
 
 /**
@@ -32,18 +32,18 @@ final class CatalogPresenter extends SecuredPresenter
 		$this->template->catalogs = $catalogs;
 		$this->template->id = $id;
 		
-		$this['catalogComponent']->catalogId = $id;
+		$this['catalogControl']->catalogId = $id;
 	}
 	
 	
 	/**
-	 * Vytvoří komponentu catalogComponent
+	 * Vytvoří komponentu catalog
 	 * 
-	 * @return CatalogComponent
+	 * @return CatalogControl
 	 */
-	public function createComponentCatalogComponent()
+	public function createComponentCatalogControl()
 	{
-		return new CatalogComponent($this->tasks, $this->catalogs);
+		return new CatalogControl($this->tasks, $this->catalogs);
 	}
 	
 	
@@ -59,13 +59,13 @@ final class CatalogPresenter extends SecuredPresenter
 	
 	
 	/**
-	 * Vytvoří komponentu logoutComponent
+	 * Vytvoří komponentu logoutControl
 	 * 
-	 * @return LogoutComponent
+	 * @return LogoutControl
 	 */
-	public function createComponentLogoutComponent()
+	public function createComponentLogoutControl()
 	{
-		return new LogoutComponent;
+		return new LogoutControl;
 	}
 	
 }

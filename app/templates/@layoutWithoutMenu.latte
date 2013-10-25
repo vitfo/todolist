@@ -29,32 +29,13 @@
 
 	<div class="container">
 		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-		<div class="navbar navbar-inverse">
-			<div class="navbar-inner">
-				<ul class="nav pull-left">
-					<li n:if="$user->isLoggedIn()" class="active"><a n:href="Catalog:list">Seznamy</a></li>
-				</ul>
-				<ul class="nav pull-right">
-					{if $user->isLoggedIn()}
-						<li>{control logoutControl}</li>
-					{else}
-						<li class="active"><a n:href="Application:login">Přihlášení</a></li>
-					{/if}
-				</ul>
-			</div>
-		</div>
-
-		{snippet content}
-			{include #content}
-		{/snippet}
-
+		{include #content}
 	</div>
 
 	{#scripts}
 	<script src="{$basePath}/js/jquery.js"></script>
 	<script src="{$basePath}/js/bootstrap.js"></script>
 	<script src="{$basePath}/js/netteForms.js"></script>
-	<script src="{$basePath}/js/nette.ajax.js"></script>
 	<script src="{$basePath}/js/main.js"></script>
 	{/#}
 </body>
