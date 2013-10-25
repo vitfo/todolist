@@ -11,22 +11,9 @@ namespace Todolist\Model;
 
 
 /**
- * Třida pro práci s úkoly
+ * Třída pro CRUD operace s úkoly
  */
 class TaskRepository extends Repository
 {
-	
-	/**
-	 * Metoda nastaví úkol jako (ne)splněný
-	 * 
-	 * @param int     $id
-	 * @param boolean $done
-	 */
-	public function setDone($id, $done = TRUE)
-	{
-		$task = $this->get($id);
-		$task->done = $done;
-		$this->persist($task);
-	}
 
 }

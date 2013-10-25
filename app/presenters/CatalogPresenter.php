@@ -9,7 +9,8 @@
 
 namespace Todolist;
 
-use Todolist\Components\CatalogControl,
+use Todolist\Model\TaskService,
+	Todolist\Components\CatalogControl,
 	Todolist\Components\CatalogForm,
 	Todolist\Components\LogoutControl;
 
@@ -19,7 +20,15 @@ use Todolist\Components\CatalogControl,
  */
 final class CatalogPresenter extends SecuredPresenter
 {
-
+	
+	/**
+	 * @var Todolist\Model\TaskService
+	 * @inject
+	 */
+	public $taskService;
+	
+	
+	
 	/**
 	 * Pohled na seznam a jeho úkoly
 	 * 
@@ -43,7 +52,7 @@ final class CatalogPresenter extends SecuredPresenter
 	 */
 	public function createComponentCatalogControl()
 	{
-		return new CatalogControl($this->tasks, $this->catalogs);
+		return new CatalogControl($this->tasks, $this->taskService, $this->catalogs);
 	}
 	
 	

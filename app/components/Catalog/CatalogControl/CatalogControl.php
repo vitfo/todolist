@@ -10,6 +10,7 @@
 namespace Todolist\Components;
 
 use Todolist\Model\TaskRepository,
+	Todolist\Model\TaskService,
 	Todolist\Model\CatalogRepository,
 	Todolist\Components\TaskForm,
 	Nette\InvalidArgumentException;
@@ -24,6 +25,9 @@ class CatalogControl extends BaseControl
 	/** @var TaskRepository */
 	protected $tasks;
 	
+	/** @var TaskService */
+	protected $taskService;
+	
 	/** @var CatalogRepository */
 	protected $catalogs;
 	
@@ -33,10 +37,12 @@ class CatalogControl extends BaseControl
 	
 	
 	public function __construct(TaskRepository $tasks,
+								TaskService $taskService,
 								CatalogRepository $catalogs)
 	{
 		parent::__construct();
 		$this->tasks = $tasks;
+		$this->taskService = $taskService;
 		$this->catalogs = $catalogs;
 	}
 	
@@ -82,7 +88,7 @@ class CatalogControl extends BaseControl
 			throw new InvalidArgumentException("Parametr 'done' může nabývat jen hodnot 'yes', nebo 'no'.");
 		}
 		
-		$this->tasks->setDone($taskId, $done);
+		$this->taskService->setDone($taskId, $done);
 		if($this->presenter->isAjax())
 		{
 			$this->invalidateControl('tasks');

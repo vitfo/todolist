@@ -11,4 +11,5 @@ services:
 	- Todolist\Model\Authenticator
 	- Todolist\Model\UserRepository
 	- Todolist\Model\TaskRepository
+	- Todolist\Model\TaskService
 	- Todolist\Model\CatalogRepository
