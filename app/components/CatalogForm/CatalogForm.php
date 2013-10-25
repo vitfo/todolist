@@ -26,6 +26,7 @@ class CatalogForm extends Form
 	protected $catalogs;
 	
 	
+	
 	public function __construct(CatalogRepository $catalogs)
 	{
 		parent::__construct();

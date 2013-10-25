@@ -31,6 +31,7 @@ class CatalogControl extends BaseControl
 	public $catalogId;
 	
 	
+	
 	public function __construct(TaskRepository $tasks,
 								CatalogRepository $catalogs)
 	{

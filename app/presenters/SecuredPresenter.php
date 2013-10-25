@@ -30,6 +30,7 @@ abstract class SecuredPresenter extends BasePresenter
 	protected $catalogs;
 	
 	
+	
 	public function inject(UserRepository $users,
 							TaskRepository $tasks,
 							CatalogRepository $catalogs)
@@ -47,12 +48,8 @@ abstract class SecuredPresenter extends BasePresenter
 		if(!$this->user->isLoggedIn())
 		{
 			$this->flashMessage("Bez přihlášení nelze vstoupit do aplikace.");
-			$this->redirect ('Sign:in');
+			$this->redirect ('Application:login');
 		}
 	}
-
-
-	
-
 
 }

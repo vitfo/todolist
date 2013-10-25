@@ -14,9 +14,9 @@ use Nette\Application\UI\Form,
 
 
 /**
- * Sign in/out presenters.
+ * Presenter pro aplikační záležitosti (přihlášení, registrace,…).
  */
-class SignPresenter extends BasePresenter
+class ApplicationPresenter extends BasePresenter
 {
 	
 	/** 
@@ -26,27 +26,22 @@ class SignPresenter extends BasePresenter
 	public $loginFormFactory;
 	
 	
-	/** Pohled In */
-	public function renderIn()
+	
+	/**
+	 * Pohled login
+	 */
+	public function renderLogin()
 	{
 	}
 	
 
 	/**
-	 * LoginForm factory.
+	 * Vytvoří komponentu loginForm
 	 * @return Form
 	 */
 	protected function createComponentLoginForm()
 	{
 		return $this->loginFormFactory->create();
-	}
-
-
-	public function actionOut()
-	{
-		$this->getUser()->logout();
-		$this->flashMessage('Byl jste odhlášen.');
-		$this->redirect('in');
 	}
 
 }

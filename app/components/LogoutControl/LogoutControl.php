@@ -23,7 +23,7 @@ class LogoutControl extends BaseControl
 	{
 		$this->presenter->getUser()->logout();
 		$this->presenter->flashMessage('Byl jste odhlášen.');
-		$this->presenter->redirect('Sign:in');
+		$this->presenter->redirect('Application:login');
 	}
 	
 	
