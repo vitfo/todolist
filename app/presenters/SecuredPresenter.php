@@ -20,25 +20,24 @@ use Todolist\Model\UserRepository,
 abstract class SecuredPresenter extends BasePresenter
 {
 	
-	/** @var UserRepository */
-	protected $users;
+	/**
+	 * @var Todolist\Model\UserRepository
+	 * @inject
+	 */
+	public $users;
 	
-	/** @var TaskRepository */
-	protected $tasks;
+	/**
+	 * @var Todolist\Model\TaskRepository
+	 * @inject
+	 */
+	public $tasks;
 	
-	/** @var CatalogRepository */
-	protected $catalogs;
+	/**
+	 * @var Todolist\Model\CatalogRepository
+	 * @inject
+	 */
+	public $catalogs;
 	
-	
-	
-	public function inject(UserRepository $users,
-							TaskRepository $tasks,
-							CatalogRepository $catalogs)
-	{
-		$this->users = $users;
-		$this->tasks = $tasks;
-		$this->catalogs = $catalogs;
-	}
 	
 	
 	public function startup()
