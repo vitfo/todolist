@@ -9,7 +9,8 @@
 
 namespace Todolist;
 
-use Nette\Application\UI\Form;
+use Nette\Application\UI\Form,
+	Todolist\Components\ILoginFormFactory;
 
 
 /**
@@ -18,51 +19,26 @@ use Nette\Application\UI\Form;
 class SignPresenter extends BasePresenter
 {
 	
+	/** 
+	 * @var Todolist\Components\ILoginFormFactory
+	 * @inject
+	 */
+	public $loginFormFactory;
+	
+	
+	/** Pohled In */
 	public function renderIn()
 	{
 	}
 	
 
 	/**
-	 * Sign-in form factory.
+	 * LoginForm factory.
 	 * @return Form
 	 */
-	protected function createComponentSignInForm()
+	protected function createComponentLoginForm()
 	{
-		$form = new Form;
-		$form->addText('username', 'Username:')
-			->setRequired('Please enter your username.');
-
-		$form->addPassword('password', 'Password:')
-			->setRequired('Please enter your password.');
-
-		$form->addCheckbox('remember', 'Keep me signed in');
-
-		$form->addSubmit('send', 'Sign in');
-
-		$form->onSuccess[] = $this->signInFormSucceeded;
-		return $form;
-	}
-
-
-	public function signInFormSucceeded($form)
-	{
-		$values = $form->getValues();
-
-		if ($values->remember) {
-			$this->getUser()->setExpiration('+ 14 days', FALSE);
-		} else {
-			$this->getUser()->setExpiration('+ 20 minutes', TRUE);
-		}
-
-		try {
-			$this->getUser()->login($values->username, $values->password);
-		} catch (Nette\Security\AuthenticationException $e) {
-			$form->addError($e->getMessage());
-			return;
-		}
-
-		$this->redirect('Catalog:list');
+		return $this->loginFormFactory->create();
 	}
 
 

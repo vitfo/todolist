@@ -1,0 +1,9 @@
+##
+# ToDoList
+# Školní projekt k seznámení s Nette a ORM
+# 
+# @author IIVOS <miroslav.mrazek@gmail.com>
+#
+
+factories:
+	- Todolist\Components\ILoginFormFactory
