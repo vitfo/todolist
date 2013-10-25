@@ -32,16 +32,16 @@ final class CatalogPresenter extends SecuredPresenter
 		$this->template->catalogs = $catalogs;
 		$this->template->id = $id;
 		
-		$this['catalog']->catalogId = $id;
+		$this['catalogControl']->catalogId = $id;
 	}
 	
 	
 	/**
 	 * Vytvoří komponentu catalog
 	 * 
-	 * @return Catalog
+	 * @return CatalogControl
 	 */
-	public function createComponentCatalog()
+	public function createComponentCatalogControl()
 	{
 		return new CatalogControl($this->tasks, $this->catalogs);
 	}
@@ -59,11 +59,11 @@ final class CatalogPresenter extends SecuredPresenter
 	
 	
 	/**
-	 * Vytvoří komponentu logout
+	 * Vytvoří komponentu logoutControl
 	 * 
-	 * @return LogoutComponent
+	 * @return LogoutControl
 	 */
-	public function createComponentLogout()
+	public function createComponentLogoutControl()
 	{
 		return new LogoutControl;
 	}
