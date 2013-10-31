@@ -18,7 +18,8 @@ use Nette\Application\UI\Form,
  */
 class LoginForm extends BaseControl
 {
-	
+
+
 	/**
 	 * Defaultní pohled
 	 */
@@ -51,7 +52,7 @@ class LoginForm extends BaseControl
 		return $form;
 	}
 
-	
+
 	/**
 	 * Zpracování formuláře
 	 * 
@@ -63,24 +64,23 @@ class LoginForm extends BaseControl
 
 		if ($values->remember) {
 			$this->presenter->getUser()->setExpiration('+ 14 days', FALSE);
-		} else {
+		}
+		else {
 			$this->presenter->getUser()->setExpiration('+ 20 minutes', TRUE);
 		}
 
-		try
-		{
+		try {
 			$this->presenter->getUser()->login($values->username, $values->password);
 		}
-		catch (AuthenticationException $e)
-		{
+		catch (AuthenticationException $e) {
 			$form->addError($e->getMessage());
 			return;
 		}
 
 		$this->presenter->redirect('Catalog:list');
 	}
-}
 
+}
 
 # ---------------------------------------------------------------------------- #
 
@@ -89,7 +89,9 @@ class LoginForm extends BaseControl
  */
 interface ILoginFormFactory
 {
-	
-    /** @return LoginForm */
-    function create();
+
+
+	/** @return LoginForm */
+	function create();
+
 }

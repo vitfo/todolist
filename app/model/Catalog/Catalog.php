@@ -21,5 +21,5 @@ namespace Todolist\Model;
  */
 class Catalog extends Entity
 {
-
+	
 }

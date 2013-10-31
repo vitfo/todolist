@@ -21,7 +21,7 @@ use LeanMapper\Repository as LeanRepository,
  */
 abstract class Repository extends LeanRepository
 {
-	
+
 	/**
 	 * Z pole výsledků vytvoří Collection
 	 * 
@@ -43,8 +43,7 @@ abstract class Repository extends LeanRepository
 	 */
 	public function get($id)
 	{
-		if ($id instanceof Entity)
-		{
+		if ($id instanceof Entity) {
 			$id = $id->id;
 		}
 
@@ -53,15 +52,14 @@ abstract class Repository extends LeanRepository
 			->where('id = %i', $id)
 			->fetch();
 
-		if ($row === FALSE)
-		{
+		if ($row === FALSE) {
 			throw new InvalidValueException('Nepodařilo se získat data z databáze.', 404);
 		}
 
 		return $this->createEntity($row);
 	}
-	
-	
+
+
 	/**
 	 * Vrátí právě jeden záznam podle podmínky.
 	 * 
@@ -75,17 +73,14 @@ abstract class Repository extends LeanRepository
 			->from($this->getTable())
 			->where($by)
 			->fetchAll();
-		
-		if (count($rows) === 1)
-		{
+
+		if (count($rows) === 1) {
 			return $this->createEntity($rows[0]);
 		}
-		elseif (count($rows) > 1)
-		{
+		elseif (count($rows) > 1) {
 			throw new InvalidValueException('Databáze vrátila více záznamů.');
 		}
-		else
-		{
+		else {
 			throw new InvalidValueException('Nepodařilo se získat data z databáze.', 404);
 		}
 	}
@@ -99,13 +94,13 @@ abstract class Repository extends LeanRepository
 	public function findAll()
 	{
 		$entities = $this->connection->select('*')
-					->from($this->getTable())
-					->fetchAll();
-		
+			->from($this->getTable())
+			->fetchAll();
+
 		return $this->createEntities($entities);
 	}
-	
-	
+
+
 	/**
 	 * Vrátí kolekci entit podle podmínky.
 	 * 
@@ -115,14 +110,14 @@ abstract class Repository extends LeanRepository
 	public function findBy($by)
 	{
 		$entities = $this->connection->select('*')
-					->from($this->getTable())
-					->where($by)
-					->fetchAll();
-		
+			->from($this->getTable())
+			->where($by)
+			->fetchAll();
+
 		return $this->createEntities($entities);
 	}
-	
-	
+
+
 	/**
 	 * Umožňuje volání metod getByFoo('foo') a findByFooAndBar('foo', 'bar').
 	 * 
@@ -132,29 +127,26 @@ abstract class Repository extends LeanRepository
 	 */
 	public function __call($method, $args)
 	{
-		if (Strings::startsWith($method, 'findBy'))
-		{
+		if (Strings::startsWith($method, 'findBy')) {
 			$stringOfKeys = Strings::substring($method, 6);
 			$arrayOfKeys = explode('And', $stringOfKeys);
 			$arrayOfLowerKeys = array_map('self::firstLower', $arrayOfKeys);
 			$arrayOfArgs = array_combine($arrayOfLowerKeys, $args);
 			return call_user_func(array($this, 'findBy'), $arrayOfArgs);
 		}
-		elseif (Strings::startsWith($method, 'getBy'))
-		{
+		elseif (Strings::startsWith($method, 'getBy')) {
 			$stringOfKeys = Strings::substring($method, 5);
 			$arrayOfKeys = explode('And', $stringOfKeys);
 			$arrayOfLowerKeys = array_map('self::firstLower', $arrayOfKeys);
 			$arrayOfArgs = array_combine($arrayOfLowerKeys, $args);
 			return call_user_func(array($this, 'getBy'), $arrayOfArgs);
 		}
-		else
-		{
+		else {
 			return Nette\ObjectMixin::call($this, $method, $args);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Převede první znak na malé písmeno
 	 * @todo: Tahle funkce by se měla přidat do Nette
@@ -166,12 +158,12 @@ abstract class Repository extends LeanRepository
 	{
 		return Strings::lower(Strings::substring($s, 0, 1)) . Strings::substring($s, 1);
 	}
-	
 
 	
+	
 	#========== Zajištění kompatibilního chování s Nette\Object ===============#
-	
-	
+
+
 	/**
 	 * Access to reflection.
 	 * @return Nette\Reflection\ClassType
@@ -181,7 +173,7 @@ abstract class Repository extends LeanRepository
 		return new Nette\Reflection\ClassType(get_called_class());
 	}
 
-
+	
 //	/**
 //	 * Call to undefined method.
 //	 * @param  string  method name
@@ -218,14 +210,16 @@ abstract class Repository extends LeanRepository
 	{
 		if (strpos($name, '::') === FALSE) {
 			$class = get_called_class();
-		} else {
+		}
+		else {
 			list($class, $name) = explode('::', $name);
 			$rc = new \ReflectionClass($class);
 			$class = $rc->getName();
 		}
 		if ($callback === NULL) {
 			return Nette\ObjectMixin::getExtensionMethod($class, $name);
-		} else {
+		}
+		else {
 			Nette\ObjectMixin::setExtensionMethod($class, $name, $callback);
 		}
 	}

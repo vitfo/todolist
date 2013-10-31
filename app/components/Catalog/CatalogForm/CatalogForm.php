@@ -21,22 +21,21 @@ use Todolist\Model\CatalogRepository,
  */
 class CatalogForm extends Form
 {
-	
+
 	/** @var CatalogRepository */
 	protected $catalogs;
-	
-	
-	
+
+
 	public function __construct(CatalogRepository $catalogs)
 	{
 		parent::__construct();
-		
-        $this->addText('title', 'Název:')
+
+		$this->addText('title', 'Název:')
 			->addRule(Form::FILLED, "Zadejte název seznamu.")
 			->addRule(Form::MIN_LENGTH, "Název musí mít alespoň %s znaků.", 3);
 		$this->addSubmit('ok', 'Vytvořit');
 		$this->onSuccess[] = callback($this, 'newCatalogFormSubmitted');
-		
+
 		$this->catalogs = $catalogs;
 	}
 
@@ -46,11 +45,11 @@ class CatalogForm extends Form
 		$template = new FileTemplate;
 		$template->registerFilter(new Engine);
 		$template->_control = $this->presenter;
-		$template->setFile(__DIR__.'/catalogForm.latte');
+		$template->setFile(__DIR__ . '/catalogForm.latte');
 		$template->render();
 	}
 
-	
+
 	/**
 	 * Obsluha formuláře NewCatalogForm
 	 * 
@@ -59,12 +58,12 @@ class CatalogForm extends Form
 	public function newCatalogFormSubmitted($form)
 	{
 		$values = $form->getValues();
-		
+
 		$catalog = new Catalog($values);
 		$catalog->user = $this->presenter->user->id;
-		
-		$this->catalogs->persist($catalog);
-		$this->presenter->redirect('this');			
-	}
-}
 
+		$this->catalogs->persist($catalog);
+		$this->presenter->redirect('this');
+	}
+
+}

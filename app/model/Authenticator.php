@@ -20,12 +20,11 @@ use Nette\Security\IAuthenticator,
  */
 class Authenticator implements IAuthenticator
 {
-	
+
 	/** @var UserRepository */
 	private $users;
-	
-	
-	
+
+
 	public function __construct(UserRepository $users)
 	{
 		$this->users = $users;
@@ -43,9 +42,8 @@ class Authenticator implements IAuthenticator
 	{
 		list($username, $password) = $credentials;
 		$user = $this->users->getByUsername($username);
-		
-		if (is_null($user))
-		{
+
+		if (is_null($user)) {
 			throw new AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
 		}
 
@@ -53,7 +51,7 @@ class Authenticator implements IAuthenticator
 //		{
 //			throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 //		}
-		
+
 		return new Identity($user->id, array(), array('name' => $user->name));
 	}
 
@@ -67,11 +65,10 @@ class Authenticator implements IAuthenticator
 	 */
 	public static function calculateHash($password, $salt = NULL)
 	{
-		if ($password === Strings::upper($password))
-		{ // perhaps caps lock is on
+		if ($password === Strings::upper($password)) { // perhaps caps lock is on
 			$password = Strings::lower($password);
 		}
-		return crypt($password, $salt ?: '$2a$07$' . Strings::random(22));
+		return crypt($password, $salt ? : '$2a$07$' . Strings::random(22));
 	}
 
 }

@@ -17,7 +17,7 @@ use LeanMapper\Entity as LeanEntity;
  */
 abstract class Entity extends LeanEntity
 {
-	
+
 	/**
 	 * Z pole výsledků vytvoří Collection
 	 * 
@@ -28,8 +28,8 @@ abstract class Entity extends LeanEntity
 	{
 		return Collection::from($entites);
 	}
-	
-	
+
+
 	/**
 	 * Umožňuje předat entitě místo navázaných entit jejich 'id'
 	 *
@@ -40,15 +40,12 @@ abstract class Entity extends LeanEntity
 	{
 		$property = $this->getReflection()->getEntityProperty($name);
 
-		if ($property->hasRelationship() && !($value instanceof Entity))
-		{
+		if ($property->hasRelationship() && !($value instanceof Entity)) {
 			$relationship = $property->getRelationship();
 			$this->row->{$property->getColumn()} = $value;
-			$this->row->cleanReferencedRowsCache($relationship->getTargetTable(),
-					$relationship->getColumnReferencingTargetTable());
+			$this->row->cleanReferencedRowsCache($relationship->getTargetTable(), $relationship->getColumnReferencingTargetTable());
 		}
-		else
-		{
+		else {
 			parent::__set($name, $value);
 		}
 	}

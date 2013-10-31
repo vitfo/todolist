@@ -19,35 +19,33 @@ use Todolist\Model\UserRepository,
  */
 abstract class SecuredPresenter extends BasePresenter
 {
-	
+
 	/**
 	 * @var Todolist\Model\UserRepository
 	 * @inject
 	 */
 	public $users;
-	
+
 	/**
 	 * @var Todolist\Model\TaskRepository
 	 * @inject
 	 */
 	public $tasks;
-	
+
 	/**
 	 * @var Todolist\Model\CatalogRepository
 	 * @inject
 	 */
 	public $catalogs;
-	
-	
-	
+
+
 	public function startup()
 	{
 		parent::startup();
-		
-		if(!$this->user->isLoggedIn())
-		{
+
+		if (!$this->user->isLoggedIn()) {
 			$this->flashMessage("Bez přihlášení nelze vstoupit do aplikace.");
-			$this->redirect ('Application:login');
+			$this->redirect('Application:login');
 		}
 	}
 

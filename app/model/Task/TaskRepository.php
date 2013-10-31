@@ -15,5 +15,5 @@ namespace Todolist\Model;
  */
 class TaskRepository extends Repository
 {
-
+	
 }

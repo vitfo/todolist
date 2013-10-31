@@ -18,22 +18,21 @@ use Nette\Application\UI\Form,
  */
 class ApplicationPresenter extends BasePresenter
 {
-	
-	/** 
+
+	/**
 	 * @var Todolist\Components\ILoginFormFactory
 	 * @inject
 	 */
 	public $loginFormFactory;
-	
-	
-	
+
+
 	/**
 	 * Pohled login
 	 */
 	public function renderLogin()
 	{
 	}
-	
+
 
 	/**
 	 * Vytvoří komponentu loginForm

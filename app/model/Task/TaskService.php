@@ -15,12 +15,11 @@ namespace Todolist\Model;
  */
 class TaskService
 {
-	
+
 	/** @var TaskRepository */
 	protected $tasks;
 
 
-	
 	public function __construct(TaskRepository $tasks)
 	{
 		$this->tasks = $tasks;

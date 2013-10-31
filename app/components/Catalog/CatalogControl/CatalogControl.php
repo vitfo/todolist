@@ -21,20 +21,20 @@ use Todolist\Model\TaskRepository,
  */
 class CatalogControl extends BaseControl
 {
-	
+
 	/** @var TaskRepository */
 	protected $tasks;
-	
+
 	/** @var TaskService */
 	protected $taskService;
-	
+
 	/** @var CatalogRepository */
 	protected $catalogs;
-	
+
 	/** @var int */
 	public $catalogId;
-	
-	
+
+
 	
 	public function __construct(TaskRepository $tasks,
 								TaskService $taskService,
@@ -45,16 +45,15 @@ class CatalogControl extends BaseControl
 		$this->taskService = $taskService;
 		$this->catalogs = $catalogs;
 	}
-	
-	
+
+
 	/** defaultní pohled */
 	public function render()
 	{
 		$this->template->setFile(__DIR__ . '/catalogControl.latte');
-		
+
 		$this->template->catalogId = $this->catalogId;
-		if (!empty($this->catalogId))
-		{
+		if (!empty($this->catalogId)) {
 			$catalog = $this->catalogs->get($this->catalogId);
 
 			$this->template->catalog = $catalog;
@@ -62,11 +61,11 @@ class CatalogControl extends BaseControl
 			$tasks = $catalog->tasks;
 			$this->template->tasks = $tasks;
 		}
-		
+
 		$this->template->render();
 	}
-	
-	
+
+
 	/**
 	 * Signál, který nastaví úkol jako (ne)splněný
 	 * 
@@ -75,32 +74,27 @@ class CatalogControl extends BaseControl
 	 */
 	public function handleSetDone($taskId, $done)
 	{
-		if($done === "yes")
-		{
+		if ($done === "yes") {
 			$done = TRUE;
 		}
-		elseif($done === "no")
-		{
+		elseif ($done === "no") {
 			$done = FALSE;
 		}
-		else
-		{
+		else {
 			throw new InvalidArgumentException("Parametr 'done' může nabývat jen hodnot 'yes', nebo 'no'.");
 		}
-		
+
 		$this->taskService->setDone($taskId, $done);
-		if($this->presenter->isAjax())
-		{
+		
+		if ($this->presenter->isAjax()) {
 			$this->invalidateControl('tasks');
 		}
-		else
-		{
+		else {
 			$this->presenter->redirect('this');
-			
 		}
 	}
-	
-	
+
+
 	/**
 	 * Vytvoří komponentu newTaskForm
 	 * 
@@ -110,6 +104,5 @@ class CatalogControl extends BaseControl
 	{
 		return new TaskForm($this->tasks);
 	}
-	
-}
 
+}

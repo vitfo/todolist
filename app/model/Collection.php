@@ -17,7 +17,7 @@ use Nette\ArrayHash;
  */
 class Collection extends ArrayHash
 {
-	
+
 	/**
 	 * Vrátí pole párů nad aktuální kolekcí
 	 * 
@@ -28,20 +28,18 @@ class Collection extends ArrayHash
 	public function fetchPairs($idCol = 'id', $textCol = 'text')
 	{
 		$pairs = array();
-		foreach ($this as $entity)
-		{
+		foreach ($this as $entity) {
 			$pairs[$entity->$idCol] = $entity->$textCol;
 		}
-		
 		return $pairs;
 	}
-	
-	
+
+
 	/**
 	 * Vytvoří pole z aktuální kolekce
 	 * 
 	 * @return array
-	 * @todo Pořešit pořádně, aby výsledné pole bylo použitelné.
+	 * @todo Pořešit rekurzivně, aby výsledné pole bylo použitelné.
 	 */
 	public function toArray()
 	{

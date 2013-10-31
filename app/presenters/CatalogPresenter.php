@@ -20,15 +20,14 @@ use Todolist\Model\TaskService,
  */
 final class CatalogPresenter extends SecuredPresenter
 {
-	
+
 	/**
 	 * @var Todolist\Model\TaskService
 	 * @inject
 	 */
 	public $taskService;
-	
-	
-	
+
+
 	/**
 	 * Pohled na seznam a jeho úkoly
 	 * 
@@ -40,11 +39,11 @@ final class CatalogPresenter extends SecuredPresenter
 		$catalogs = $user->catalogs;
 		$this->template->catalogs = $catalogs;
 		$this->template->id = $id;
-		
+
 		$this['catalogControl']->catalogId = $id;
 	}
-	
-	
+
+
 	/**
 	 * Vytvoří komponentu catalog
 	 * 
@@ -54,8 +53,8 @@ final class CatalogPresenter extends SecuredPresenter
 	{
 		return new CatalogControl($this->tasks, $this->taskService, $this->catalogs);
 	}
-	
-	
+
+
 	/**
 	 * Vytvoří komponentu catalogForm
 	 * 
@@ -65,8 +64,8 @@ final class CatalogPresenter extends SecuredPresenter
 	{
 		return new CatalogForm($this->catalogs);
 	}
-	
-	
+
+
 	/**
 	 * Vytvoří komponentu logoutControl
 	 * 
@@ -76,5 +75,5 @@ final class CatalogPresenter extends SecuredPresenter
 	{
 		return new LogoutControl;
 	}
-	
+
 }
