@@ -43,13 +43,11 @@ final class CatalogPresenter extends SecuredPresenter
 	{
 		$this->template->catalogs = $this->userEntity->catalogs;
 		$this->template->catalogId = $id;
-
-		$this['catalogControl']->catalogId = $id;
 	}
 
 
 	/**
-	 * Vytvoří komponentu catalog
+	 * Vytvoří komponentu catalogControl
 	 * 
 	 * @return CatalogControl
 	 */
@@ -60,7 +58,7 @@ final class CatalogPresenter extends SecuredPresenter
 
 
 	/**
-	 * Vytvoří komponentu catalogForm
+	 * Vytvoří komponentu newCatalogForm
 	 * 
 	 * @return CatalogForm
 	 */

@@ -9,8 +9,7 @@
 
 namespace Todolist\Components;
 
-use Todolist\Model\TaskRepository,
-	Todolist\Model\TaskService,
+use Todolist\Model\TaskService,
 	Todolist\Model\CatalogRepository,
 	Todolist\Components\TaskForm,
 	Todolist\Components\ITaskFormFactory,
@@ -23,30 +22,22 @@ use Todolist\Model\TaskRepository,
 class CatalogControl extends BaseControl
 {
 
-	/** @var TaskRepository */
-	protected $tasks;
-
 	/** @var TaskService */
 	protected $taskService;
 
 	/** @var CatalogRepository */
 	protected $catalogs;
 
-	/** @var int */
-	public $catalogId;
-	
 	/** @var ITaskFormFactory */
 	protected $taskFormFactory;
 
 
 	
-	public function __construct(TaskRepository $tasks,
-								TaskService $taskService,
+	public function __construct(TaskService $taskService,
 								CatalogRepository $catalogs,
 								ITaskFormFactory $taskFormFactory)
 	{
 		parent::__construct();
-		$this->tasks = $tasks;
 		$this->taskService = $taskService;
 		$this->catalogs = $catalogs;
 		$this->taskFormFactory = $taskFormFactory;
@@ -54,20 +45,14 @@ class CatalogControl extends BaseControl
 
 
 	/** defaultní pohled */
-	public function render()
+	public function render($id)
 	{
 		$this->template->setFile(__DIR__ . '/catalogControl.latte');
 
-		$this->template->catalogId = $this->catalogId;
-		if (!empty($this->catalogId)) {
-			$catalog = $this->catalogs->get($this->catalogId);
-
-			$this->template->catalog = $catalog;
-
-			$tasks = $catalog->tasks;
-			$this->template->tasks = $tasks;
-		}
-
+		$catalog = $this->catalogs->get($id);
+		$this->template->catalog = $catalog;
+		$this->template->tasks = $catalog->tasks;
+		
 		$this->template->render();
 	}
 

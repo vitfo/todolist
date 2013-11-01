@@ -26,8 +26,9 @@
 	</div>
 </div>
 
-<hr>
-
-{control catalogControl}
+{if !is_null($catalogId)}
+	<hr>
+	{control catalogControl, $catalogId}
+{/if}
 
 {/#}
