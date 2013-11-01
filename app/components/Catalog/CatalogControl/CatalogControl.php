@@ -47,12 +47,11 @@ class CatalogControl extends BaseControl
 	/** defaultní pohled */
 	public function render($id)
 	{
-		$this->template->setFile(__DIR__ . '/catalogControl.latte');
-
 		$catalog = $this->catalogs->get($id);
 		$this->template->catalog = $catalog;
 		$this->template->tasks = $catalog->tasks;
 		
+		$this->template->setFile(__DIR__ . '/catalogControl.latte');
 		$this->template->render();
 	}
 
@@ -93,7 +92,8 @@ class CatalogControl extends BaseControl
 	 */
 	public function createComponentNewTaskForm()
 	{
-		return $this->taskFormFactory->create();
+		$newTaskForm = $this->taskFormFactory->create();
+		return $newTaskForm;
 	}
 
 }

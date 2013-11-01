@@ -23,6 +23,9 @@ class TaskForm extends BaseControl
 
 	/** @var TaskRepository */
 	protected $tasks;
+	
+	/** @var int */
+	protected $catalogId;
 
 
 	public function __construct(TaskRepository $tasks)
@@ -32,6 +35,15 @@ class TaskForm extends BaseControl
 	}
 	
 	
+	/**
+	 * @param int
+	 */
+	public function setCatalogId($id)
+	{
+		$this->catalogId = $id;
+	}
+
+
 	/**
 	 * Defaultní pohled
 	 */
