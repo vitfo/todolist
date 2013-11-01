@@ -18,7 +18,7 @@ use Todolist\Model\TaskRepository,
 /**
  * Formulář pro vložení nového úkolu
  */
-class TaskForm extends Form
+class TaskForm extends BaseControl
 {
 
 	/** @var TaskRepository */
@@ -28,23 +28,43 @@ class TaskForm extends Form
 	public function __construct(TaskRepository $tasks)
 	{
 		parent::__construct();
-
-		$this->addText('text', 'Popis:')
+		$this->tasks = $tasks;
+	}
+	
+	
+	/**
+	 * Defaultní pohled
+	 */
+	public function render()
+	{
+		$this->template->setFile(__DIR__ . '/taskForm.latte');
+		$this->template->render();
+	}
+	
+	
+	/**
+	 * TaskForm factory
+	 * 
+	 * @return Form
+	 */
+	public function createComponentTaskForm()
+	{
+		$form = new Form;
+		$form->addText('text', 'Popis:')
 			->addRule(Form::FILLED, "Zadejte popis úkolu.")
 			->addRule(Form::MIN_LENGTH, "Popis musí mít alespoň %s znaků.", 5);
-		$this->addSubmit('ok', 'Vytvořit');
-		$this->onSuccess[] = callback($this, 'newTaskFormSubmitted');
-
-		$this->tasks = $tasks;
+		$form->addSubmit('ok', 'Vytvořit');
+		$form->onSuccess[] = $this->success;
+		return $form;
 	}
 
 
 	/**
-	 * Obsluha formuláře NewTaskForm
+	 * Zpracování formuláře
 	 * 
 	 * @param Form $form
 	 */
-	public function newTaskFormSubmitted($form)
+	public function success($form)
 	{
 		$values = $form->getValues();
 
@@ -55,5 +75,19 @@ class TaskForm extends Form
 		$this->tasks->persist($task);
 		$this->presenter->redirect('this');
 	}
+
+}
+
+
+# ---------------------------------------------------------------------------- #
+
+/**
+ * Rozhranní pro generovanou továrničku
+ */
+interface ITaskFormFactory
+{
+
+	/** @return TaskForm */
+	function create();
 
 }

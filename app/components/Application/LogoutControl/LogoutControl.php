@@ -48,3 +48,17 @@ class LogoutControl extends BaseControl
 	}
 
 }
+
+
+# ---------------------------------------------------------------------------- #
+
+/**
+ * Rozhranní pro generovanou továrničku
+ */
+interface ILogoutControlFactory
+{
+
+	/** @return LogoutControl */
+	function create();
+
+}

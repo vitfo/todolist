@@ -7,3 +7,7 @@
 
 factories:
 	- Todolist\Components\ILoginFormFactory
+	- Todolist\Components\ILogoutControlFactory
+	- Todolist\Components\ICatalogFormFactory
+	- Todolist\Components\ICatalogControlFactory
+	- Todolist\Components\ITaskFormFactory

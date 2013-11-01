@@ -13,6 +13,7 @@ use Todolist\Model\TaskRepository,
 	Todolist\Model\TaskService,
 	Todolist\Model\CatalogRepository,
 	Todolist\Components\TaskForm,
+	Todolist\Components\ITaskFormFactory,
 	Nette\InvalidArgumentException;
 
 
@@ -33,17 +34,22 @@ class CatalogControl extends BaseControl
 
 	/** @var int */
 	public $catalogId;
+	
+	/** @var ITaskFormFactory */
+	protected $taskFormFactory;
 
 
 	
 	public function __construct(TaskRepository $tasks,
 								TaskService $taskService,
-								CatalogRepository $catalogs)
+								CatalogRepository $catalogs,
+								ITaskFormFactory $taskFormFactory)
 	{
 		parent::__construct();
 		$this->tasks = $tasks;
 		$this->taskService = $taskService;
 		$this->catalogs = $catalogs;
+		$this->taskFormFactory = $taskFormFactory;
 	}
 
 
@@ -102,7 +108,21 @@ class CatalogControl extends BaseControl
 	 */
 	public function createComponentNewTaskForm()
 	{
-		return new TaskForm($this->tasks);
+		return $this->taskFormFactory->create();
 	}
+
+}
+
+
+# ---------------------------------------------------------------------------- #
+
+/**
+ * Rozhranní pro generovanou továrničku
+ */
+interface ICatalogControlFactory
+{
+
+	/** @return CatalogControl */
+	function create();
 
 }

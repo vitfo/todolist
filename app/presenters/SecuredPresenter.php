@@ -9,9 +9,10 @@
 
 namespace Todolist;
 
-use Todolist\Model\UserRepository,
-	Todolist\Model\TaskRepository,
-	Todolist\Model\CatalogRepository;
+use Todolist\Model\User,
+	Todolist\Model\UserRepository,
+	Todolist\Components\LogoutControl,
+	Todolist\Components\ILogoutControlFactory;
 
 
 /**
@@ -19,24 +20,18 @@ use Todolist\Model\UserRepository,
  */
 abstract class SecuredPresenter extends BasePresenter
 {
+	
+	/** @var User */
+	protected $userEntity;
+
+	/** @var UserRepository */
+	private $users;
 
 	/**
-	 * @var Todolist\Model\UserRepository
+	 * @var \Todolist\Components\ILogoutControlFactory
 	 * @inject
 	 */
-	public $users;
-
-	/**
-	 * @var Todolist\Model\TaskRepository
-	 * @inject
-	 */
-	public $tasks;
-
-	/**
-	 * @var Todolist\Model\CatalogRepository
-	 * @inject
-	 */
-	public $catalogs;
+	public $logoutControlFactory;
 
 
 	public function startup()
@@ -47,6 +42,30 @@ abstract class SecuredPresenter extends BasePresenter
 			$this->flashMessage("Bez přihlášení nelze vstoupit do aplikace.");
 			$this->redirect('Application:login');
 		}
+		
+		$this->userEntity = $this->users->get($this->user->id);
+	}
+	
+	
+	/**
+	 * Vytvoří komponentu logoutControl
+	 * 
+	 * @return LogoutControl
+	 */
+	public function createComponentLogoutControl()
+	{
+		return $this->logoutControlFactory->create();
+	}
+	
+	
+	/**
+	 * Injector
+	 * 
+	 * @param UserRepository $users
+	 */
+	public function injectUserRepository(UserRepository $users)
+	{
+		$this->users = $users;
 	}
 
 }

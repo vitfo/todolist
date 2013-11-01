@@ -9,10 +9,10 @@
 
 namespace Todolist;
 
-use Todolist\Model\TaskService,
-	Todolist\Components\CatalogControl,
+use Todolist\Components\CatalogControl,
+	Todolist\Components\ICatalogControlFactory,
 	Todolist\Components\CatalogForm,
-	Todolist\Components\LogoutControl;
+	Todolist\Components\ICatalogFormFactory;
 
 
 /**
@@ -20,12 +20,18 @@ use Todolist\Model\TaskService,
  */
 final class CatalogPresenter extends SecuredPresenter
 {
-
+	
 	/**
-	 * @var Todolist\Model\TaskService
+	 * @var \Todolist\Components\ICatalogControlFactory
 	 * @inject
 	 */
-	public $taskService;
+	public $catalogControlFactory;
+	
+	/**
+	 * @var \Todolist\Components\ICatalogFormFactory
+	 * @inject
+	 */
+	public $catalogFormFactory;
 
 
 	/**
@@ -35,10 +41,8 @@ final class CatalogPresenter extends SecuredPresenter
 	 */
 	public function actionList($id = NULL)
 	{
-		$user = $this->users->get($this->user->id);
-		$catalogs = $user->catalogs;
-		$this->template->catalogs = $catalogs;
-		$this->template->id = $id;
+		$this->template->catalogs = $this->userEntity->catalogs;
+		$this->template->catalogId = $id;
 
 		$this['catalogControl']->catalogId = $id;
 	}
@@ -51,7 +55,7 @@ final class CatalogPresenter extends SecuredPresenter
 	 */
 	public function createComponentCatalogControl()
 	{
-		return new CatalogControl($this->tasks, $this->taskService, $this->catalogs);
+		return $this->catalogControlFactory->create();
 	}
 
 
@@ -62,18 +66,7 @@ final class CatalogPresenter extends SecuredPresenter
 	 */
 	public function createComponentNewCatalogForm()
 	{
-		return new CatalogForm($this->catalogs);
-	}
-
-
-	/**
-	 * Vytvoří komponentu logoutControl
-	 * 
-	 * @return LogoutControl
-	 */
-	public function createComponentLogoutControl()
-	{
-		return new LogoutControl;
+		return $this->catalogFormFactory->create();
 	}
 
 }

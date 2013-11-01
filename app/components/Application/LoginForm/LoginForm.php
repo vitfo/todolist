@@ -40,14 +40,10 @@ class LoginForm extends BaseControl
 		$form = new Form;
 		$form->addText('username', 'Jméno:')
 			->setRequired('Vyplňte, prosím, přihlašovací jméno.');
-
 		$form->addPassword('password', 'Heslo:')
 			->setRequired('Zadejte, prosím, heslo.');
-
 		$form->addCheckbox('remember', 'Chci zůstat přihlášený');
-
 		$form->addSubmit('ok', 'Přihlásit se!');
-
 		$form->onSuccess[] = $this->success;
 		return $form;
 	}
@@ -82,6 +78,7 @@ class LoginForm extends BaseControl
 
 }
 
+
 # ---------------------------------------------------------------------------- #
 
 /**
@@ -89,7 +86,6 @@ class LoginForm extends BaseControl
  */
 interface ILoginFormFactory
 {
-
 
 	/** @return LoginForm */
 	function create();

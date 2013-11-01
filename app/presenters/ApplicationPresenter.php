@@ -20,7 +20,7 @@ class ApplicationPresenter extends BasePresenter
 {
 
 	/**
-	 * @var Todolist\Components\ILoginFormFactory
+	 * @var \Todolist\Components\ILoginFormFactory
 	 * @inject
 	 */
 	public $loginFormFactory;
