@@ -4,7 +4,7 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  */
 
 namespace Todolist\Components;
@@ -18,7 +18,8 @@ use Nette\Application\UI\Form,
  */
 class LoginForm extends BaseControl
 {
-	
+
+
 	/**
 	 * Defaultní pohled
 	 */
@@ -39,19 +40,15 @@ class LoginForm extends BaseControl
 		$form = new Form;
 		$form->addText('username', 'Jméno:')
 			->setRequired('Vyplňte, prosím, přihlašovací jméno.');
-
 		$form->addPassword('password', 'Heslo:')
 			->setRequired('Zadejte, prosím, heslo.');
-
 		$form->addCheckbox('remember', 'Chci zůstat přihlášený');
-
 		$form->addSubmit('ok', 'Přihlásit se!');
-
 		$form->onSuccess[] = $this->success;
 		return $form;
 	}
 
-	
+
 	/**
 	 * Zpracování formuláře
 	 * 
@@ -63,22 +60,22 @@ class LoginForm extends BaseControl
 
 		if ($values->remember) {
 			$this->presenter->getUser()->setExpiration('+ 14 days', FALSE);
-		} else {
+		}
+		else {
 			$this->presenter->getUser()->setExpiration('+ 20 minutes', TRUE);
 		}
 
-		try
-		{
+		try {
 			$this->presenter->getUser()->login($values->username, $values->password);
 		}
-		catch (AuthenticationException $e)
-		{
+		catch (AuthenticationException $e) {
 			$form->addError($e->getMessage());
 			return;
 		}
 
 		$this->presenter->redirect('Catalog:list');
 	}
+
 }
 
 
@@ -89,7 +86,8 @@ class LoginForm extends BaseControl
  */
 interface ILoginFormFactory
 {
-	
-    /** @return LoginForm */
-    function create();
+
+	/** @return LoginForm */
+	function create();
+
 }

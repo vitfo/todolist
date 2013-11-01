@@ -4,7 +4,7 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  */
 
 namespace Todolist\Model;
@@ -21,5 +21,5 @@ namespace Todolist\Model;
  */
 class Catalog extends Entity
 {
-
+	
 }

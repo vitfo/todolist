@@ -2,35 +2,35 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  *
  * @param $catalog
  * @param $tasks
  *}
 
 <div class="row">
-	
-<div n:if="isset($catalog)" id="tasks" class="span5">
-	<h2>Úkoly v seznamu {$catalog->title}</h2>
-	{snippet tasks}
-	<ul>
-		<li n:foreach="$tasks as $task">
-			<span n:class="$task->done ? 'done'">{$task->text}</span> | 
 
-			{if $task->done}
-				<a n:href="setDone!, $task->id, 'no'" class="ajax">Nesplněno!</a>
-			{else}
-				<a n:href="setDone!, $task->id, 'yes'" class="ajax">Splněno!</a>
-			{/if}
+	<div n:if="isset($catalog)" id="tasks" class="span5">
+		<h2>Úkoly v seznamu {$catalog->title}</h2>
+		{snippet tasks}
+			<ul>
+				<li n:foreach="$tasks as $task">
+					<span n:class="$task->done ? 'done'">{$task->text}</span> | 
 
-		</li>
-	</ul>
-	{/snippet}
-</div>
+					{if $task->done}
+						<a n:href="setDone!, $task->id, 'no'" class="ajax">Nesplněno!</a>
+					{else}
+						<a n:href="setDone!, $task->id, 'yes'" class="ajax">Splněno!</a>
+					{/if}
 
-<div n:if="isset($catalog)" id="taskForm" class="span5">
-	<h2>Nový úkol</h2>
-	{control newTaskForm}
-</div>
-	
+				</li>
+			</ul>
+		{/snippet}
+	</div>
+
+	<div n:if="isset($catalog)" id="taskForm" class="span5">
+		<h2>Nový úkol</h2>
+		{control newTaskForm}
+	</div>
+
 </div>

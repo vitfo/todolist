@@ -2,9 +2,10 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  *
  * @param $catalogs
+ * @param $catalogId
  *}
 
 {#content}
@@ -13,7 +14,7 @@
 	<div id="catalogs" class="span5">
 		<h2 n:block="title">Seznamy úkolů</h2>
 		<ul class="nav nav-list" n:snippet="list">
-			<li n:foreach="$catalogs as $catalog"  n:class="$catalog->id == $id ? active">
+			<li n:foreach="$catalogs as $catalog"  n:class="$catalog->id == $catalogId ? active">
 				<a n:href="Catalog:list $catalog->id">{$catalog->title}</a>
 			</li>
 		</ul>
@@ -25,8 +26,9 @@
 	</div>
 </div>
 
-<hr>
-
-{control catalogControl}
+{if !is_null($catalogId)}
+	<hr>
+	{control catalogControl, $catalogId}
+{/if}
 
 {/#}

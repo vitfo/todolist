@@ -4,7 +4,7 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  */
 
 namespace Todolist\Model;
@@ -35,7 +35,7 @@ class Mapper extends DefaultMapper
 	{
 		return "id";
 	}
-	
+
 
 	/**
 	 * FK format: [table]_id
@@ -47,7 +47,7 @@ class Mapper extends DefaultMapper
 	{
 		return $targetTable . "_id";
 	}
-	
+
 
 	/**
 	 * some_entity -> Model\Entity\SomeEntity
@@ -59,7 +59,7 @@ class Mapper extends DefaultMapper
 	{
 		return $this->defaultEntityNamespace . '\\' . ucfirst($this->underdashToCamel($table));
 	}
-	
+
 
 	/**
 	 * Model\Entity\SomeEntity -> some_entity
@@ -70,7 +70,7 @@ class Mapper extends DefaultMapper
 	{
 		return $this->camelToUnderdash($this->trimNamespace($entityClass));
 	}
-	
+
 
 	/**
 	 * someField -> some_field
@@ -82,7 +82,7 @@ class Mapper extends DefaultMapper
 	{
 		return $this->camelToUnderdash($field);
 	}
-	
+
 
 	/**
 	 * some_field -> someField
@@ -94,7 +94,7 @@ class Mapper extends DefaultMapper
 	{
 		return $this->underdashToCamel($column);
 	}
-	
+
 
 	/**
 	 * Model\Repository\SomeEntityRepository -> some_entity
@@ -106,7 +106,7 @@ class Mapper extends DefaultMapper
 		$class = preg_replace('#([a-z0-9]+)Repository$#', '$1', $repositoryClass);
 		return $this->camelToUnderdash($this->trimNamespace($class));
 	}
-	
+
 
 	/**
 	 * camelCase -> underdash_separated.
@@ -120,7 +120,7 @@ class Mapper extends DefaultMapper
 		$s = rawurlencode($s);
 		return $s;
 	}
-	
+
 
 	/**
 	 * underdash_separated -> camelCase

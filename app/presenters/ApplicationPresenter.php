@@ -4,7 +4,7 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  */
 
 namespace Todolist;
@@ -18,22 +18,21 @@ use Nette\Application\UI\Form,
  */
 class ApplicationPresenter extends BasePresenter
 {
-	
-	/** 
-	 * @var Todolist\Components\ILoginFormFactory
+
+	/**
+	 * @var \Todolist\Components\ILoginFormFactory
 	 * @inject
 	 */
 	public $loginFormFactory;
-	
-	
-	
+
+
 	/**
 	 * Pohled login
 	 */
 	public function renderLogin()
 	{
 	}
-	
+
 
 	/**
 	 * Vytvoří komponentu loginForm

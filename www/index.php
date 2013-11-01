@@ -4,7 +4,7 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  */
 
 
@@ -12,7 +12,7 @@
 // require '.maintenance.php';
 
 # Načteme zkratky pro rychlé volání často používaných funkcí.
-include __DIR__ . '/../app/aliases.php';;
+include __DIR__ . '/../app/aliases.php';
 
 # Necháme bootstrap vytvořit DI kontejner.
 $container = require __DIR__ . '/../app/bootstrap.php';

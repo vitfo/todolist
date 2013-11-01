@@ -4,14 +4,15 @@
  * TODOLIST
  * Školní projekt k seznámení s Nette a ORM
  * 
- * @author IIVOS <miroslav.mrazek@gmail.com>
+ * @author MMR <miroslav.mrazek@gmail.com>
  */
 
 namespace Todolist;
 
 use Todolist\Components\CatalogControl,
+	Todolist\Components\ICatalogControlFactory,
 	Todolist\Components\CatalogForm,
-	Todolist\Components\LogoutControl;
+	Todolist\Components\ICatalogFormFactory;
 
 
 /**
@@ -19,6 +20,19 @@ use Todolist\Components\CatalogControl,
  */
 final class CatalogPresenter extends SecuredPresenter
 {
+	
+	/**
+	 * @var \Todolist\Components\ICatalogControlFactory
+	 * @inject
+	 */
+	public $catalogControlFactory;
+	
+	/**
+	 * @var \Todolist\Components\ICatalogFormFactory
+	 * @inject
+	 */
+	public $catalogFormFactory;
+
 
 	/**
 	 * Pohled na seznam a jeho úkoly
@@ -27,45 +41,30 @@ final class CatalogPresenter extends SecuredPresenter
 	 */
 	public function actionList($id = NULL)
 	{
-		$user = $this->users->get($this->user->id);
-		$catalogs = $user->catalogs;
-		$this->template->catalogs = $catalogs;
-		$this->template->id = $id;
-		
-		$this['catalogControl']->catalogId = $id;
+		$this->template->catalogs = $this->userEntity->catalogs;
+		$this->template->catalogId = $id;
 	}
-	
-	
+
+
 	/**
-	 * Vytvoří komponentu catalog
+	 * Vytvoří komponentu catalogControl
 	 * 
 	 * @return CatalogControl
 	 */
 	public function createComponentCatalogControl()
 	{
-		return new CatalogControl($this->tasks, $this->catalogs);
+		return $this->catalogControlFactory->create();
 	}
-	
-	
+
+
 	/**
-	 * Vytvoří komponentu catalogForm
+	 * Vytvoří komponentu newCatalogForm
 	 * 
 	 * @return CatalogForm
 	 */
 	public function createComponentNewCatalogForm()
 	{
-		return new CatalogForm($this->catalogs);
+		return $this->catalogFormFactory->create();
 	}
-	
-	
-	/**
-	 * Vytvoří komponentu logoutControl
-	 * 
-	 * @return LogoutControl
-	 */
-	public function createComponentLogoutControl()
-	{
-		return new LogoutControl;
-	}
-	
+
 }
